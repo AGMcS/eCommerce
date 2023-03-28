@@ -1,0 +1,22 @@
+Website changes & content naming
+
+
+Index.php
+
+General Changes:		Put the header section of website into Includes/header.php
+						Put the modals into Includes/modals.php
+						Added login/logout scripts, signin/signout nav button changes accordingly
+						Signing out destroys the session. THIS MIGHT BE WRONG, I DON'T KNOW.
+
+
+Sign-In modal form:		email input name 		= signInEmail
+						password input name 	= signInPassword
+						submit button			= signInSubmit
+
+						Modal automatically shows while there is a sign-in error. To cancel the sign-in and remove the error, the
+						user much click the green close button.
+
+Contact Us form:		removed the "php-email-form" class from the form in order to facilitate the post to php.
+
+Known Issues:			Footer home button still links to index.html, change to .php
+						login.php calls to a dummy database, remember to change over to real one when it gets made

@@ -1,0 +1,9 @@
+Things needing to be changed
+
+index.php
+
+Sign In modal 	-	Needing to be routed to the proper database
+FAQ Section     -   Theres a 'remember to HREF sizing guide message'???
+
+Contact us:				Database table needed to push to.
+						Return this to admin users.
