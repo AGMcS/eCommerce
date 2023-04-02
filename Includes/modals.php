@@ -39,7 +39,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <p class="me-auto">Don't have an account? <a href="#">Sign up here</a></p>
+                    <p class="me-auto">Don't have an account? <a href="http://localhost/website/registerPage.php">Sign up here</a></p>
                     <button type="submit" name="signInCancel" class="btn btn-secondary text-light" data-bs-dismiss="modal">Close</button>
                     </form>
                 <?php

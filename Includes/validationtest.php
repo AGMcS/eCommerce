@@ -17,5 +17,4 @@ function loginValidation ($email, $password) {
     }
 }
 
-
 ?>

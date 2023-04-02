@@ -39,7 +39,6 @@
             </li>
                 <?php
                 if (isset($_SESSION["userName"])) {
-
                     echo '<li class="dropdown">';
                     echo    '<a href="#shop"><span>'.$_SESSION["userName"], '</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>';
                     echo    '<ul>';
@@ -47,9 +46,6 @@
                     echo        '<li><a href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a></li>';
                     echo    '</ul>';
                     echo '</li>';
-                    // echo "<a href='#' data-bs-toggle='modal' data-bs-target='#signOutModal'>";
-                    // echo "Sign Out";
-                    // echo "</a>";
                 } else {
                     echo "<li>";
                     echo "<a href='#' data-bs-toggle='modal' data-bs-target='#signInModal'>";
@@ -65,7 +61,6 @@
             </li>
         </ul>
         <!-- Navbar -->
-
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
     </nav>

@@ -79,7 +79,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets/img/products/womens/womensTeeFleeceOrange1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/womens/womensFleeceOrange1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 1</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Women's Fleece Orange</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets/img/products/womens/womensJacketBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/womens/womensJacketBlack1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 1</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Women's Black Jacket</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\kids\kidsTeeWhite1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsTeeWhite1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Branding 1</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Kid's White T-Shirt</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\kids\kidsJacketBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsJacketBlack1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Books 1</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Kid's Black Jacket</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\kids\kidsHoodieTeal2.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsHoodieTeal2.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">App 2</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Kid's Teal Hoodie</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\accessories\carharttHatBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\carharttHatBlack1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Product 2</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Carhartt Black Hat</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\accessories\hatVansCream1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\hatVansCream1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Branding 2</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Vans Cream Hat</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                             <div class="portfolio-wrap">
                                 <a href="assets\img\products\accessories\hatVolcomWine1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\hatVolcomWine1.png" class="img-fluid" alt=""></a>
                                 <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Books 2</a></h4>
+                                    <h4><a href="portfolio-details.html" title="More Details">Volcom Wine Hat</a></h4>
                                     <p>Lorem ipsum, dolor sit amet consectetur</p>
                                 </div>
                             </div>
