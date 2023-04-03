@@ -19,12 +19,12 @@ if (isset($_POST["signInSubmit"])) {
         printf("Connection to DB failed: %s \n", mysqli_connect_error());
     } else {
 
-        $sql = "SELECT * FROM form WHERE email = '$email' and password = '$password'";
+        $sql = "SELECT * FROM account WHERE Email = '$email' and Password = '$password'";
 
         $res = mysqli_query($sqlConnection, $sql);
         $count = mysqli_num_rows($res);
         $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
-        $userName = $array["name"];
+        $userName = $array["FirstName"];
 
         if ($count == 1) {
             session_start();

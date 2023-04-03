@@ -40,58 +40,9 @@
 
     <!-- ======= Header ======= -->
 
-    <header id="header" class="header d-flex align-items-center">
-
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <!-- Uncomment the line below if you also wish to use an image logo -->
-                <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1>Drip<span>Clothing</span></h1>
-            </a>
-
-            <!--search bar-->
-            <form action="#" method="get" class="d-flex ms-auto">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn-search" type="submit"><i class="bi bi-search"></i></button>
-            </form>
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a href="index.html#home">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <!-- <li><a href="#portfolio">Portfolio</a></li> -->
-                    <!--<li><a href="#team">Team</a></li> -->
-                    <li class="dropdown">
-                        <a href="index.html#shop"><span>Shop</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                        <ul>
-                            <li class="dropdown">
-                                <a href="index.html#shop"><span>Shop All</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                                <ul>
-                                    <li><a href="#mensFilter">Mens</a></li>
-                                    <li><a href="#womensFilter">Women</a></li>
-                                    <li><a href="#kidsFilter">Kids</a></li>
-                                    <li><a href="#accessoriesFilter">Accessories</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#signInModal">
-                            Sign In
-                        </a>
-                    <li>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#basketModal">
-                            <i class="bi bi-bag"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- Navbar -->
-
-                <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-                <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-            </nav>
-        </div>
-    </header>
+    <?php
+        include("Includes/header.php");
+    ?>
     <!-- End Header -->
 
     <!-- Sign-in Modal -->
@@ -156,8 +107,8 @@
 
     <main id="main">
 
-        <!-- Checkout Section ======= -->
-        <section id="checkout" class="main">
+        <!-- Register Section ======= -->
+        <section id="register" class="main">
             <div class="container" data-aos="fade-up">
 
                 <div class="container">
@@ -166,15 +117,15 @@
                         <div class="col-md-8">
                             <h2 class="mb-4">Account Creation</h2>
 
-                            <form>
+                            <form action="http://localhost/website/Includes/register.php" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="inputFirstName" name="registerFirstName" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="inputFirstName">
+                                        <label for="inputFirstName" class="form-label">First Name</label>
+                                        <input type="text" name="registerFirstName" class="form-control" id="inputFirstName">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputLastName" name="registerLastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="inputLastName">
+                                        <label for="inputLastName" class="form-label">Last Name</label>
+                                        <input type="text" name="registerLastName" class="form-control" id="inputLastName">
                                     </div>
                                 </div>
 
@@ -192,10 +143,10 @@
                                         <label for="inputCountry" class="form-label">Country</label>
                                         <select id="inputCountry" name="registerCountry" class="form-select">
                                             <option value="">Choose...</option>
-                                            <option value="EN">England</option>
-                                            <option value="SC">Scotland</option>
-                                            <option value="NI">Northern Ireland</option>
-                                            <option value="WA">Wales</option>
+                                            <option value="England">England</option>
+                                            <option value="Scotland">Scotland</option>
+                                            <option value="Northern Ireland">Northern Ireland</option>
+                                            <option value="Wales">Wales</option>
                                         </select>
                                     </div>
                                 </div>
@@ -223,6 +174,10 @@
                                         <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
                                         <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" class="form-control">
                                     </div>
+                                </div>
+
+                                <div class="row-mb-3">
+                                    <button type="submit" name="registerSubmit" class="btn btn-primary">Register</button>
                                 </div>
 
                                 <hr class="hr-splitter">

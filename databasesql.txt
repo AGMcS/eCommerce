@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2023 at 09:42 AM
+-- Generation Time: Apr 03, 2023 at 05:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -14,6 +14,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `dummyform`
 --
+CREATE DATABASE IF NOT EXISTS `dummyform` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `dummyform`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `AccountID` varchar(7) NOT NULL,
+  `AdminID` varchar(7) DEFAULT NULL,
+  `FirstName` varchar(20) NOT NULL,
+  `LastName` varchar(20) NOT NULL,
+  `Street` varchar(50) NOT NULL,
+  `City` varchar(20) NOT NULL,
+  `Country` varchar(20) NOT NULL,
+  `Postcode` varchar(8) NOT NULL,
+  `Email` varchar(30) NOT NULL,
+  `Password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`AccountID`, `AdminID`, `FirstName`, `LastName`, `Street`, `City`, `Country`, `Postcode`, `Email`, `Password`) VALUES
+('US27038', NULL, 'Darren', 'Gallagher', '31 Maclevennon Rd', 'Portrush', 'Northern Ireland', 'BT56 123', 'darren@gmail.com', 'password');
 
 -- --------------------------------------------------------
 
@@ -63,6 +91,90 @@ INSERT INTO `form` (`name`, `email`, `username`, `password`) VALUES
 ('number3', 'number3@hotmail.com', 'numberThree', 'testtest'),
 ('number1', 'test@hotmail.com', 'user1', 'user1password');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `ProductID` varchar(7) NOT NULL,
+  `Name` varchar(30) NOT NULL,
+  `Price` double NOT NULL,
+  `Description` text NOT NULL,
+  `ImagePath` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`ProductID`, `Name`, `Price`, `Description`, `ImagePath`) VALUES
+('ACC1000', 'Carhartt Black Hat', 25, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\accessories\\carharttHatBlack1.png'),
+('ACC1001', 'Vans Cream Hat', 25, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\accessories\\hatVansCream1.png'),
+('ACC1002', 'Volcom Wine Hat', 25, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\accessories\\hatVolcomWine1.png'),
+('KID1000', 'Kid\'s White T-Shirt', 20, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\kids\\kidsTeeWhite1.png'),
+('KID1001', 'Kid\'s Black Jacket', 40, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\kids\\kidsJacketBlack1.png'),
+('KID1002', 'Kid\'s Teal Hoodie', 30, 'Lorem ipsum, dolor sit amet consectetur', 'assets\\img\\products\\kids\\kidsHoodieTeal2.png'),
+('MEN1000', 'Men\'s White Longsleeve', 35, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/mens/mensTeeWhite1.png'),
+('MEN1001', 'Men\'s Black Jacket', 85, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/mens/mensJacketBlack1.png'),
+('MEN1002', 'Men\'s Fleece', 65, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/mens/mensFleece1.png'),
+('MEN1003', 'Men\'s Yellow Jumper', 50, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/mens/mensJumperYell.png'),
+('WOM1000', 'Women\'s T-shirt', 35, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/womens/womensTeeLilac1.png'),
+('WOM1001', 'Women\'s Fleece Orange', 60, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/womens/womensFleeceOrange1.png'),
+('WOM1002', 'Women\'s Black Jacket', 70, 'Lorem ipsum, dolor sit amet consectetur', 'assets/img/products/womens/womensJacketBlack1.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stock`
+--
+
+CREATE TABLE `stock` (
+  `ProductID` varchar(7) NOT NULL,
+  `Size` varchar(2) NOT NULL,
+  `Amount` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stock`
+--
+
+INSERT INTO `stock` (`ProductID`, `Size`, `Amount`) VALUES
+('ACC1000', '-', 8),
+('ACC1001', '-', 15),
+('ACC1002', '-', 11),
+('KID1000', 'L', 5),
+('KID1000', 'M', 5),
+('KID1000', 'S', 4),
+('KID1001', 'L', 3),
+('KID1001', 'M', 5),
+('KID1001', 'S', 5),
+('KID1002', 'L', 5),
+('KID1002', 'M', 4),
+('KID1002', 'S', 6),
+('MEN1000', 'L', 3),
+('MEN1000', 'M', 6),
+('MEN1000', 'S', 5),
+('MEN1001', 'L', 3),
+('MEN1001', 'M', 4),
+('MEN1001', 'S', 6),
+('MEN1002', 'L', 3),
+('MEN1002', 'M', 6),
+('MEN1002', 'S', 7),
+('MEN1003', 'L', 5),
+('MEN1003', 'M', 5),
+('MEN1003', 'S', 4),
+('WOM1000', 'L', 6),
+('WOM1000', 'M', 5),
+('WOM1000', 'S', 4),
+('WOM1001', 'L', 5),
+('WOM1001', 'M', 5),
+('WOM1001', 'S', 4),
+('WOM1002', 'L', 4),
+('WOM1002', 'M', 5),
+('WOM1002', 'S', 0);
+
 --
 -- Indexes for dumped tables
 --
@@ -72,4 +184,26 @@ INSERT INTO `form` (`name`, `email`, `username`, `password`) VALUES
 --
 ALTER TABLE `form`
   ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`ProductID`);
+
+--
+-- Indexes for table `stock`
+--
+ALTER TABLE `stock`
+  ADD PRIMARY KEY (`ProductID`,`Size`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `Stock_FK` FOREIGN KEY (`ProductID`) REFERENCES `product` (`ProductID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
