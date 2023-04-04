@@ -2,19 +2,21 @@
 
 function loginValidation ($email, $password) {
 
-    if (empty($email)) {
-        session_start();
-        $_SESSION["error"] = "Email field is empty";
-        header("location: ". $_SERVER['HTTP_REFERER']);
+    if (empty($email) && empty($password)) {
+        header("location: http://localhost/website/index.php?errorEmail=Email+field+is+empty&errorPassword=Password+field+is+empty");
         exit();
-    } else if (empty($password)) {
-        session_start();
-        $_SESSION["error"] = "Password field is empty";
-        header("location: ". $_SERVER['HTTP_REFERER']);
-        exit();
-    } else {
-        unset($_SESSION["error"]);
     }
+
+    if (empty($email)) {
+        header("location: http://localhost/website/index.php?errorEmail=Email+field+is+empty");
+        exit();
+    }
+
+    if (empty($password)) {
+        header("location: http://localhost/website/index.php?errorPassword=Password+field+is+empty");
+        exit();
+    }
+    
 }
 
 ?>

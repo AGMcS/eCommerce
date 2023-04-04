@@ -7,3 +7,5 @@ FAQ Section     -   Theres a 'remember to HREF sizing guide message'???
 
 Contact us:				Database table needed to push to.
 						Return this to admin users.
+
+IMPORTANT!!:			The subject portion of the 'contact us' form cannot begin with numbers

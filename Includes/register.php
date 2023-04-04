@@ -14,14 +14,14 @@ if (isset($_POST["registerSubmit"])) {
             $count = mysqli_num_rows($res);
         }
 
-        $firstName = mysqli_real_escape_string($sqlConnection, $_POST["registerFirstName"]);
-        $lastName = mysqli_real_escape_string($sqlConnection, $_POST["registerLastName"]);
-        $street = mysqli_real_escape_string($sqlConnection, $_POST["registerStreet"]);
-        $city = mysqli_real_escape_string($sqlConnection, $_POST["registerCity"]);
-        $country = mysqli_real_escape_string($sqlConnection, $_POST["registerCountry"]);
-        $postcode = mysqli_real_escape_string($sqlConnection, $_POST["registerPostcode"]);
-        $email = mysqli_real_escape_string($sqlConnection, $_POST["registerEmail"]);
-        $password = mysqli_real_escape_string($sqlConnection, $_POST["registerPassword"]);
+        $firstName = mysqli_real_escape_string($sqlConnection, $_POST["register"]["firstName"]);
+        $lastName = mysqli_real_escape_string($sqlConnection, $_POST["register"]["lastName"]);
+        $street = mysqli_real_escape_string($sqlConnection, $_POST["register"]["street"]);
+        $city = mysqli_real_escape_string($sqlConnection, $_POST["register"]["city"]);
+        $country = mysqli_real_escape_string($sqlConnection, $_POST["register"]["country"]);
+        $postcode = mysqli_real_escape_string($sqlConnection, $_POST["register"]["postcode"]);
+        $email = mysqli_real_escape_string($sqlConnection, $_POST["register"]["email"]);
+        $password = mysqli_real_escape_string($sqlConnection, $_POST["register"]["password"]);
 
         $query = "INSERT INTO account VALUES ('$accID', null, '$firstName', '$lastName', '$street', '$city', '$country', '$postcode', '$email', '$password')";
         $res = mysqli_query($sqlConnection, $query);

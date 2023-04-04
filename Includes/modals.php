@@ -13,8 +13,8 @@
                             <input type="email" class="form-control" name="signInEmail" id="email" aria-describedby="emailHelp"
                             value='<?php echo isset($_SESSION["email"]) ? $_SESSION["email"] : ""; ?>'>
                             <?php
-                                if (isset($_SESSION["error"]) && $_SESSION["error"] == "Email field is empty") {
-                                    echo "<p class='text-danger'>". $_SESSION['error']. "</p>";
+                                if (isset($_GET["errorEmail"])) {
+                                    echo "<p class='text-danger'>". $_GET['errorEmail']. "</p>";
                                 }
                             ?>
                         </div>
@@ -23,16 +23,16 @@
                             <input type="password" class="form-control" name="signInPassword" id="password"
                             value=<?php echo isset($_SESSION["password"]) ? $_SESSION["password"] : ''; ?>>
                             <?php
-                                if (isset($_SESSION["error"]) && $_SESSION["error"] == "Password field is empty") {
-                                    echo "<p class='text-danger'>". $_SESSION['error']. "</p>";
+                                if (isset($_GET["errorPassword"])) {
+                                    echo "<p class='text-danger'>". $_GET['errorPassword']. "</p>";
                                 }
                             ?>
                         </div>
                         <div class="d-grid">
                             <button type="submit" name="signInSubmit" class="btn btn-primary">Sign In</button>
                             <?php
-                                if (isset($_SESSION["error"]) && $_SESSION["error"] == "Incorrect email or password") {
-                                    echo "<p class='text-danger text-center'>". $_SESSION['error']. "</p>";
+                                if (isset($_GET["wrongCredentials"])) {
+                                    echo "<p class='text-danger text-center'>". $_GET['wrongCredentials']. "</p>";
                                 }
                             ?>
                         </div>
@@ -43,7 +43,7 @@
                     <button type="submit" name="signInCancel" class="btn btn-secondary text-light" data-bs-dismiss="modal">Close</button>
                     </form>
                 <?php
-                    if(isset($_SESSION["error"])) {
+                    if(isset($_GET["errorEmail"]) || isset($_GET["errorPassword"]) || isset($_GET["wrongCredentials"])) {
                         echo '<script>
                                 $(document).ready(function(){
                                     $("#signInModal").modal("show");

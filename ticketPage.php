@@ -40,61 +40,17 @@
 
     <!-- ======= Header ======= -->
 
+    
+
     <?php
         include("Includes/header.php");
     ?>
     <!-- End Header -->
 
-    <!-- Sign-in Modal -->
-    <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Sign In</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p class="me-auto">Don't have an account? <a href="#">Sign up here</a></p>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Basket Modal -->
-    <div class="modal fade" id="basketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Your Basket</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Basket content goes here -->
-                    <p>Your basket is currently empty.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
-                    <a href="checkout.html" class="btn btn-secondary">Checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Modals -->
+    <?php
+        include("Includes/modals.php");
+    ?>
 
     <!-- ======= Hero Section ======= -->
     <section id="checkout-hero" class="hero-alt">
@@ -106,6 +62,21 @@
     <!-- End Hero Section -->
 
     <main id="main">
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+
+        <?php
+            include("Includes/portfolio.php");
+            displayTickets();
+        ?>
+    </table>
 
         <!-- Register Section ======= -->
         <section id="register" class="main">
@@ -121,27 +92,27 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="inputFirstName" class="form-label">First Name</label>
-                                        <input type="text" name="register[firstName]" class="form-control" id="inputFirstName">
+                                        <input type="text" name="registerFirstName" class="form-control" id="inputFirstName">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputLastName" class="form-label">Last Name</label>
-                                        <input type="text" name="register[lastName]" class="form-control" id="inputLastName">
+                                        <input type="text" name="registerLastName" class="form-control" id="inputLastName">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" name="register[street]" class="form-control" id="inputAddress">
+                                    <input type="text" name="registerStreet" class="form-control" id="inputAddress">
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" name="register[city]" class="form-control" id="inputCity">
+                                        <input type="text" name="registerCity" class="form-control" id="inputCity">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputCountry" class="form-label">Country</label>
-                                        <select id="inputCountry" name="register[country]" class="form-select">
+                                        <select id="inputCountry" name="registerCountry" class="form-select">
                                             <option value="">Choose...</option>
                                             <option value="England">England</option>
                                             <option value="Scotland">Scotland</option>
@@ -155,12 +126,12 @@
 
                                     <div class="col-md-6">
                                         <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" name="register[postcode]" class="form-control" id="inputZip">
+                                        <input type="text" name="registerPostcode" class="form-control" id="inputZip">
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="email" name="register[email]" class="form-control" id="inputEmail">
+                                        <input type="email" name="registerEmail" class="form-control" id="inputEmail">
                                     </div>
 
                                 </div>
@@ -168,11 +139,11 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="registerPassword" class="form-label">Password</label>
-                                        <input type="password" name="register[password]" id="registerPassword" class="form-control">
+                                        <input type="password" name="registerPassword" id="registerPassword" class="form-control">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" name="register[confirmPassword]" id="registerConfirmPassword" class="form-control">
+                                        <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" class="form-control">
                                     </div>
                                 </div>
 
@@ -190,63 +161,11 @@
 
     </main> <!-- End Main Section-->
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
 
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-5 col-md-12 footer-info">
-                    <a href="index.html" class="logo d-flex align-items-center">
-                        <span>Drip Clothing Company</span>
-                    </a>
-                    <p> </p>
-                    <div class="social-links d-flex mt-4">
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#aboutus">About us</a></li>
-                        <li><a href="#shop">Services</a></li>
-                        <li><a href="#faq">Frequently Asked Questions</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                    <h4>Contact Us</h4>
-                    <p>
-                        University of Ulster (Magee Campus) <br>
-                        Derry/ Londonderry<br>
-                        BT48 7JL <br>
-                        Northern Ireland<br><br>
-                        <strong>Phone:</strong> +44 751 044 1852<br>
-                        <strong>Email:</strong> dripclothingco@gmail.com<br>
-                    </p>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="container mt-4">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Drip Clothing Company</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/impact-bootstrap-business-website-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
-
-    </footer><!-- End Footer -->
+    <?php
+        include("Includes/footer.php");
+    ?>
+    
     <!-- End Footer -->
 
     <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

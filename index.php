@@ -635,8 +635,8 @@
 
                     </div>
 
-                    <div class="col-lg-8">
-                        <form action="http://localhost/website/Includes/login.php" method="post" role="form" class="form-control">
+                    <div class="col-lg-8" id="contact">
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form" class="form-control">
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <input type="text" name="contactUsName" class="form-control" id="name" placeholder="Your Name">
@@ -646,7 +646,7 @@
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <input type="text" class="form-control" name="contactUsubject" id="subject" placeholder="Subject">
+                                <input type="text" class="form-control" name="contactUsSubject" id="subject" placeholder="Subject">
                             </div>
                             <div class="form-group mt-3">
                                 <textarea class="form-control" name="contactUsMessage" rows="7" placeholder="Message"></textarea>
@@ -658,6 +658,12 @@
                             </div>
                             <div class="text-center"><button type="submit" class="btn btn-primary" name="contactUsSubmit">Send Message</button></div>
                         </form>
+                        <?php
+                            include("Includes/contact.php");
+                            if (isset($_POST["contactUsSubmit"])) {
+                                contact($_POST["contactUsName"], $_POST["contactUsEmail"], $_POST["contactUsSubject"], $_POST["contactUsMessage"]);
+                            }
+                        ?>
                     </div><!-- End Contact Form -->
 
                 </div>

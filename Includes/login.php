@@ -30,17 +30,16 @@ if (isset($_POST["signInSubmit"])) {
             session_start();
             unset($_SESSION["error"]);
             $_SESSION["userName"] = $userName;
+            if ($array["AdminID"] != null ) {
+                $_SESSION["adminID"] = $array["AdminID"];
+            }
             header("location: ../index.php");
         } else {
-            $_SESSION["error"] = "Incorrect email or password";
-            header("location: ../index.php");
+            header("location: http://localhost/website/index.php?wrongCredentials=Incorrect+email+or+password");
         }
     }
 } else {
     session_start();
-    if(isset($_SESSION["error"])) {
-        unset($_SESSION["error"]);
-    }
 
     if(isset($_SESSION["email"])) {
         unset($_SESSION["email"]);
