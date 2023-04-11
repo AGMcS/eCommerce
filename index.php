@@ -357,43 +357,41 @@
        <!-- ======= Portfolio Section ======= -->
 
             <section id="shop" class="portfolio sections-bg">
-                <div class="container" data-aos="fade-up">
 
-                    <div class="section-header">
-                        <h2>Shop</h2>
-                        <p>The good stuff</p>
+                <div class="section-header">
+                    <h2>Shop</h2>
+                    <p>The good stuff</p>
+                </div>
+
+                    <div>
+                        <ul class="portfolio-flters">
+                            <li data-filter="*" class="filter-active">All</li>
+                            <li data-filter=".filter-mens">Mens</li>
+                            <li data-filter=".filter-womens">Womens</li>
+                            <li data-filter=".filter-kids">Kids</li>
+                            <li data-filter=".filter-accessories">Accessories</li>
+                        </ul><!-- End Portfolio Filters -->
                     </div>
 
-                    <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
-
-                        <div>
-                            <ul class="portfolio-flters">
-                                <li data-filter="*" class="filter-active">All</li>
-                                <li data-filter=".filter-mens">Mens</li>
-                                <li data-filter=".filter-womens">Womens</li>
-                                <li data-filter=".filter-kids">Kids</li>
-                                <li data-filter=".filter-accessories">Accessories</li>
-                            </ul><!-- End Portfolio Filters -->
-                        </div>
-
-                        <div class="row gy-4 portfolio-container" id="clothes">
-                            <?php
-                                include("Includes/portfolio.php");
-                                if (isset($_GET["filter"])) {
-                                    if ($_GET["filter"] == "all") {
-                                        displayClothes("");
-                                    } else {
-                                        displayClothes($_GET["filter"]);
-                                    }
-                                } else {
+                    <div class="row gy-4 portfolio-container" id="clothes">
+                        <?php
+                            include("Includes/portfolio.php");
+                            if (isset($_GET["filter"])) {
+                                if ($_GET["filter"] == "all") {
                                     displayClothes("");
+                                } else {
+                                    displayClothes($_GET["filter"]);
                                 }
-                            ?>
-                        </div>
-
+                            } else if (isset($_GET["searchSubmit"]) && isset($_GET["searchTags"])) {
+                                returnSearchItems($_GET["searchTags"]);
+                            } else {
+                                displayClothes("");
+                            }
+                        ?>
                     </div>
 
                 </div>
+
             </section>
 
 

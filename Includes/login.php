@@ -24,12 +24,12 @@ if (isset($_POST["signInSubmit"])) {
         $res = mysqli_query($sqlConnection, $sql);
         $count = mysqli_num_rows($res);
         $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
-        $userName = $array["FirstName"];
 
         if ($count == 1) {
             session_start();
             unset($_SESSION["error"]);
-            $_SESSION["userName"] = $userName;
+            $_SESSION["account"] = $array;
+            $_SESSION["cartCount"];
             if ($array["AdminID"] != null ) {
                 $_SESSION["adminID"] = $array["AdminID"];
             }

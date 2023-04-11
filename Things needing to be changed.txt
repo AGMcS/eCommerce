@@ -9,3 +9,6 @@ Contact us:				Database table needed to push to.
 						Return this to admin users.
 
 IMPORTANT!!:			The subject portion of the 'contact us' form cannot begin with numbers
+						Need to pull the editAccounts function from portfolio into it's own php file
+						Need to query database to alter S/M/L part of products modal
+						Need to add alternate image paths to the product table
