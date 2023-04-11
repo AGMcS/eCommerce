@@ -48,7 +48,7 @@
                     echo        '<li><a href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a></li>';
                     if (isset($_SESSION["adminID"])) {
                         echo '<li><a href="http://localhost/website/ticketPage.php">View Tickets</a></li>';
-                        echo '<li><a href="http://localhost/website/ticketPage.php">Edit Account</a></li>';
+                        echo '<li><a href="http://localhost/website/adminAccountsPage.php">Manage Users</a></li>';
                     }
                     echo    '</ul>';
                     echo '</li>';

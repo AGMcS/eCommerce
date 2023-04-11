@@ -55,7 +55,7 @@
     <!-- ======= Hero Section ======= -->
     <section id="checkout-hero" class="hero-alt">
         <div class="container" data-aos="fade-down">
-            <h2>Register</h2>
+            <h2>User Tickets</h2>
         </div>
 
     </section>
@@ -63,101 +63,36 @@
 
     <main id="main">
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Time</th>
-        </tr>
+        <!-- Ticket Table Section ======= -->
 
-        <?php
-            include("Includes/portfolio.php");
-            displayTickets();
-        ?>
-    </table>
+        <div class="container">
 
-        <!-- Register Section ======= -->
-        <section id="register" class="main">
-            <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h2 class="mb-4">Account Creation</h2>
 
-                <div class="container">
+                    <table class="table table-dark table-striped">
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2 class="mb-4">Account Creation</h2>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
 
-                            <form action="http://localhost/website/Includes/register.php" method="post">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="inputFirstName" class="form-label">First Name</label>
-                                        <input type="text" name="registerFirstName" class="form-control" id="inputFirstName">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="inputLastName" class="form-label">Last Name</label>
-                                        <input type="text" name="registerLastName" class="form-control" id="inputLastName">
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" name="registerStreet" class="form-control" id="inputAddress">
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" name="registerCity" class="form-control" id="inputCity">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="inputCountry" class="form-label">Country</label>
-                                        <select id="inputCountry" name="registerCountry" class="form-select">
-                                            <option value="">Choose...</option>
-                                            <option value="England">England</option>
-                                            <option value="Scotland">Scotland</option>
-                                            <option value="Northern Ireland">Northern Ireland</option>
-                                            <option value="Wales">Wales</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-
-                                    <div class="col-md-6">
-                                        <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" name="registerPostcode" class="form-control" id="inputZip">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="email" name="registerEmail" class="form-control" id="inputEmail">
-                                    </div>
-
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="registerPassword" class="form-label">Password</label>
-                                        <input type="password" name="registerPassword" id="registerPassword" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" name="registerConfirmPassword" id="registerConfirmPassword" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row-mb-3">
-                                    <button type="submit" name="registerSubmit" class="btn btn-primary">Register</button>
-                                </div>
-
-                                <hr class="hr-splitter">
-                            </form>
-                        </div>
-                    </div>
+                        <?php
+                            include("Includes/portfolio.php");
+                            displayTickets();
+                        ?>
+                    </table>
                 </div>
             </div>
-        </section><!-- End About Us Section -->
+        </div>
 
     </main> <!-- End Main Section-->
     <!-- ======= Footer ======= -->

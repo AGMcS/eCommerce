@@ -1,5 +1,23 @@
  <!-- ======= Portfolio Section ======= -->
- 
+
+<?php
+
+    function deleteTicket($email, $date, $time) {
+
+        $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+        $query = "DELETE FROM userQueries WHERE Email = '$email' AND queryDate= '$date' AND time='$time'";
+
+        $res = mysqli_query($sqlConnection, $query);
+
+        if ($res == 1) {
+            header("location: http://localhost/website/ticketPage.php");
+        } else {
+            echo "ERROR";
+        }
+
+        mysqli_close($sqlConnection);
+    }
+?>
 
 <?php
 
@@ -49,38 +67,36 @@
                 $date = $array["queryDate"];
                 $time = $array["time"];
 
-                if($count % 2 == 0) {
-                    $class = "style='background-color: #D3D3D3'";
-                } else {
-                    $class="";
-                }
-
-                echo "<tr ".$class.">";
-                echo "<td>'$name'</td>";
-                echo "<td>'$email'</td>";
-                echo "<td><b><a href='#' data-bs-toggle='modal' data-bs-target='#".$message."Modal'>'$subject'</a></b></td>";
-                echo "<td>'$date'</td>";
-                echo "<td>'$time'</td>";
+                echo "<tr class='table-active'>";
+                echo "<td>".$count."</td>";
+                echo "<td>".$name."</td>";
+                echo "<td>".$email."</td>";
+                echo "<td><b><a href='#' data-bs-toggle='modal' class='text-success' data-bs-target='#".$message."Modal'>".$subject."</a></b></td>";
+                echo "<td>".$date."</td>";
+                echo "<td>".$time."</td>";
+                echo "<td><form action=".$_SERVER["PHP_SELF"]." method='post'><button type='submit' name='".$count."Delete' class='btn btn-danger'>Delete</button></form></td>";
                 echo "</tr>";
+
+                if (isset($_POST[$count."Delete"])) {
+                    deleteTicket($email, $date, $time);
+                }
                 ?>
 
                 <div class="modal fade" id="<?php echo $message."Modal"; ?>" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signOutModalLabel">Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="http://localhost/website/Includes/logout.php" method="post">
-                        <div class="mb-3 text-center">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-light" id="signOutModalLabel"><?php echo $subject ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3 text-center">
                             <p><?php echo $message; ?></p>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
     <?php
             }
         }
@@ -88,138 +104,46 @@
     }
 ?>
 
-                        <!-- Mens Items-->
+<?php 
 
-                        <!-- <div class="col-xl-4 col-md-6 portfolio-item filter-mens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/mens/mensTeeWhite1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/mens/mensTeeWhite1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Men's White Longsleeve</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
+    function displayUsers($filter) {
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-mens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/mens/mensJacketBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/mens/mensJacketBlack1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Men's Black Jacket</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
+        $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-mens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/mens/mensFleece1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/mens/mensFleece1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Men's Fleece</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
+        if (mysqli_connect_errno()) {
+            printf("Could not connect to DB: %S", mysqli_connect_error());
+        } else {
+            $query = "SELECT AccountID, FirstName, LastName, Street, City, Country, Postcode, Email FROM account ".$filter;
+            $res = mysqli_query($sqlConnection, $query);
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-mens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/mens/mensJumperYell.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/mens/mensJumperYell.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Men's Yellow Jumper</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div> -->
+            if($res) {
+                while ($array = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                    static $count;
+                    $count++;
 
-                        
+                    $accountID = $array["AccountID"];
+                    $name = $array["FirstName"]." ".$array["LastName"];
+                    $street = $array["Street"];
+                    $city = $array["City"];
+                    $postcode = $array["Postcode"];
+                    $country = $array["Country"];
+                    $email = $array["Email"];
 
-                        <!-- <div class="col-xl-4 col-md-6 portfolio-item filter-womens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/womens/womensTeeLilac1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/womens/womensTeeLilac1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Women's T-shirt</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
+                    echo "<tr class='table-active'>";
+                    echo "<td>".$count."</td>";
+                    echo "<td>".$accountID."</td>";
+                    echo "<td>".$name."</td>";
+                    echo "<td>".$street."</td>";
+                    echo "<td>".$city."</td>";
+                    echo "<td>".$country."</td>";
+                    echo "<td>".$postcode."</td>";
+                    echo "<td>".$email."</td>";
+                    echo "</tr>";
+                }
+            }
+        }
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-womens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/womens/womensFleeceOrange1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/womens/womensFleeceOrange1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Women's Fleece Orange</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
+        mysqli_close($sqlConnection);
+    }
 
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-womens">
-                            <div class="portfolio-wrap">
-                                <a href="assets/img/products/womens/womensJacketBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/products/womens/womensJacketBlack1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Women's Black Jacket</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-kids">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\kids\kidsTeeWhite1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsTeeWhite1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Kid's White T-Shirt</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-kids">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\kids\kidsJacketBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsJacketBlack1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Kid's Black Jacket</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-kids">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\kids\kidsHoodieTeal2.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\kids\kidsHoodieTeal2.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Kid's Teal Hoodie</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-accessories">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\accessories\carharttHatBlack1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\carharttHatBlack1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Carhartt Black Hat</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-accessories">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\accessories\hatVansCream1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\hatVansCream1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Vans Cream Hat</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 portfolio-item filter-accessories">
-                            <div class="portfolio-wrap">
-                                <a href="assets\img\products\accessories\hatVolcomWine1.png" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets\img\products\accessories\hatVolcomWine1.png" class="img-fluid" alt=""></a>
-                                <div class="portfolio-info">
-                                    <h4><a href="portfolio-details.html" title="More Details">Volcom Wine Hat</a></h4>
-                                    <p>Lorem ipsum, dolor sit amet consectetur</p>
-                                </div>
-                            </div>
-                        </div>-->
-
-                    <!-- End Portfolio Section -->
+?>
