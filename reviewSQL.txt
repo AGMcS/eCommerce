@@ -1,0 +1,4 @@
+SELECT reviews.Review, reviews.ReviewScore, AVG(reviews.ReviewScore) as Average, account.FirstName, account.City, product.Name FROM reviews
+JOIN product ON product.ProductID = reviews.ProductID
+JOIN account ON account.AccountID = reviews.AccountID
+WHERE reviews.ProductID = 'MEN1002';

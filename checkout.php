@@ -68,81 +68,128 @@
 
                 <div class="container">
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2 class="mb-4">Billing Details</h2>
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 text-center">
+                            <h2 class="mb-4">Your Cart Items</h2>
+
+                            <?php
+                                if (isset($_SESSION["cart"])){ 
+
+                                    $total = 0;
+                                     
+                                    foreach ($_SESSION["cart"] as $key => $value) { ?>
+                                        <div class="row mb-4 border border-4 rounded-pill">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <img src="<?php echo $value["ImagePath"]; ?>" class="img-thumbnail" style="border: none;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 class="mt-3 mb-3"><?php echo $value["Name"]; ?></h4>
+                                                <p><?php echo (isset($value["Size"])) ? "Size: <b>".$value["Size"]. "</b>" : "Size: <b>-</b>"; ?></p>
+                                                <p><?php printf ("Price: <b>£%0.2f</b>", $value["Price"]); ?></p>
+                                                <?php $total += $value["Price"]; ?>
+                                            </div>
+                                        </div>
+
+                                <?php
+                                    }
+                                ?>
+                                    <div class="row mb-4 border border-4 rounded-pill">
+                                        <h3 class="mt-2"><?php printf ("<b>Total: £%0.2f</b>", $total); ?></h3>
+                                    </div>
+                                
+                            <?php
+                                } else {
+                                    echo "<p>Your cart is empty</p>";
+                                } 
+                            ?>
+                        </div>
+
+                        <div class="col-md-5">
+                            <h2 class="mb-4 text-center">Billing Details</h2>
 
                             <form action="Includes/purchaseItems.php" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="inputFirstName" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="inputFirstName">
+                                        <label for="payment[FirstName]" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="payment[FitstName]" name="payment[FirstName]">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputLastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="inputLastName">
+                                        <label for="payment[LastName]" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="payment[LastName]" name="payment[LastName]">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="inputEmail" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail">
+                                    <label for="payment[Email]" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="payment[Email]" name="payment[Email]">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="inputAddress">
+                                    <label for="payment[Address]" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="payment[Address]" name="payment[Address]">
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="inputCity">
+                                        <label for="payment[City]" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="payment[City]" name="payment[City]">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputCountry" class="form-label">Country</label>
-                                        <select id="inputCountry" class="form-select">
-                                            
+                                        <label for="payment[Country]" class="form-label">Country</label>
+                                        <select id="payment[Country]" name="payment[Country]" class="form-select">
+                                            <option value="">Choose...</option>
+                                            <option value="England">England</option>
+                                            <option value="Scotland">Scotland</option>
+                                            <option value="Northern Ireland">Northern Ireland</option>
+                                            <option value="Wales">Wales</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="inputZip" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip">
+                                    <label for="payment{Postcode]" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="payment[Postcode]" name="payment[Postcode]">
                                 </div>
 
                                 <hr class="hr-splitter">
 
-                                <h2 class="mb-4">Payment Details</h2>
+                                <h2 class="mb-4 text-center">Payment Details</h2>
 
                                 <div class="mb-3">
-                                    <label for="inputCardNumber" class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" id="inputCardNumber">
+                                    <label for="payment[CardNumber]" class="form-label">Card Number</label>
+                                    <input type="text" class="form-control" id="payment[CardNumber]" name="payment[CardNumber]">
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="inputExpiration" class="form-label">Expiration</label>
-                                        <input type="text" class="form-control" id="inputExpiration" placeholder="MM/YY">
+                                        <label for="payment[CardExpiration]" class="form-label">Expiration</label>
+                                        <input type="text" class="form-control" id="payment[CardExpiration]" name="payment[CardExpiration]" placeholder="MM/YY">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="inputCVV" class="form-label">CVV</label>
-                                        <input type="text" class="form-control" id="inputCVV" placeholder="123">
+                                        <label for="payment[CVV]" class="form-label">CVV</label>
+                                        <input type="text" class="form-control" id="payment[CVV]" name="payment[CVV]" placeholder="123">
                                     </div>
                                 </div>
-
-                                <button type="submit" class="btn btn-primary">Place Order</button>
+                                
+                                <?php if (isset($_SESSION["account"])) { ?>
+                                    <input type="hidden" name="payment[Total]" value="<?php echo $total; ?>">
+                                    <button type="submit" name="payment[submit]" class="btn btn-primary">Place Order</button>
+                                <?php } else { ?>
+                                    <p class="text-danger">Sorry, you must have an account to make a purchase</p>
+                                <?php } ?>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section><!-- End About Us Section -->
+        </section>
 
-    </main> <!-- End Main Section-->
+    </main> 
+    <!-- End Main Section-->
+
     <!-- ======= Footer ======= -->
-    
     <?php
         include("Includes/footer.php");
     ?>

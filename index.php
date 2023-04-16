@@ -78,7 +78,7 @@
                     <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="icon-box" style="background-image: url('assets/img/tiles/menTile.png'); background-size: cover;">
                             <div class="icon"></div>
-                            <h4 class="title"><a href="#shop" class="stretched-link">Men</a></h4>
+                            <h4 class="title"><a href="?filter=MEN#shop" class="stretched-link">Men</a></h4>
                         </div>
 
                     </div>
@@ -87,7 +87,7 @@
                     <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="icon-box" style="background-image: url('assets/img/tiles/womenTile.png'); background-size: cover;">
                             <div class="icon"></div>
-                            <h4 class="title"><a href="#" class="stretched-link">Women</a></h4>
+                            <h4 class="title"><a href="?filter=WOM#shop" class="stretched-link">Women</a></h4>
                         </div>
                     </div>
                     <!--End Icon Box -->
@@ -95,7 +95,7 @@
                     <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="icon-box" style="background-image: url('assets/img/tiles/kidsTile.png'); background-size: cover;">
                             <div class="icon"></div>
-                            <h4 class="title"><a href="#" class="stretched-link">Kids</a></h4>
+                            <h4 class="title"><a href="?filter=KID#shop" class="stretched-link">Kids</a></h4>
                         </div>
                     </div>
                     <!--End Icon Box -->
@@ -103,7 +103,7 @@
                     <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
                         <div class="icon-box" style="background-image: url('assets/img/tiles/accessoryTile.png'); background-size: cover;">
                             <div class="icon"></div>
-                            <h4 class="title"><a href="#a" class="stretched-link">Accessories</a></h4>
+                            <h4 class="title"><a href="?filter=ACC#shop" class="stretched-link">Accessories</a></h4>
                         </div>
                     </div>
                     <!--End Icon Box -->
@@ -363,15 +363,15 @@
                     <p>The good stuff</p>
                 </div>
 
-                    <div>
+                    <!-- <div>
                         <ul class="portfolio-flters">
                             <li data-filter="*" class="filter-active">All</li>
                             <li data-filter=".filter-mens">Mens</li>
                             <li data-filter=".filter-womens">Womens</li>
                             <li data-filter=".filter-kids">Kids</li>
                             <li data-filter=".filter-accessories">Accessories</li>
-                        </ul><!-- End Portfolio Filters -->
-                    </div>
+                        </ul>
+                    </div> -->
 
                     <div class="row gy-4 portfolio-container" id="clothes">
                         <?php
@@ -634,7 +634,7 @@
                     </div>
 
                     <div class="col-lg-8" id="contact">
-                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form" class="form-control">
+                        <form id="contactForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form" class="form-control">
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <input type="text" name="contactUsName" class="form-control" id="name" placeholder="Your Name">
@@ -654,7 +654,7 @@
                                 <div class="error-message"></div>
                                 <div class="sent-message">Your message has been sent. Thank you!</div>
                             </div>
-                            <div class="text-center"><button type="submit" class="btn btn-primary" name="contactUsSubmit">Send Message</button></div>
+                            <div class="text-center"><button type="submit" onclick="checkForm('#contactForm')" class="btn btn-primary" name="contactUsSubmit">Send Message</button></div>
                         </form>
                         <?php
                             include("Includes/contact.php");
@@ -694,6 +694,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="http://localhost/website/assets/js/formValidation.js"></script>
 
 </body>
 

@@ -297,3 +297,21 @@ function showModal() {
   myModal.show();
 }
 
+const form = document.querySelector('form');
+
+form.addEventListener('submit', (event) => {
+  const inputFields = document.querySelectorAll('input');
+  let hasEmptyFields = false;
+
+  for (let i = 0; i < inputFields.length; i++) {
+    if (inputFields[i].value === '') {
+      hasEmptyFields = true;
+      break;
+    }
+  }
+
+  if (hasEmptyFields) {
+    event.preventDefault();
+    alert('Please fill out all the fields.');
+  }
+});

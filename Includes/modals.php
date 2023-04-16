@@ -10,7 +10,7 @@
                     <form action="http://localhost/website/Includes/login.php" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" name="signInEmail" id="email" aria-describedby="emailHelp"
+                            <input type="text" class="form-control" name="signInEmail" id="email" aria-describedby="emailHelp"
                             value='<?php echo isset($_SESSION["email"]) ? $_SESSION["email"] : ""; ?>'>
                             <?php
                                 if (isset($_GET["errorEmail"])) {
@@ -154,7 +154,45 @@
                 </div>
                 <div class="modal-body">
                     <!-- Basket content goes here -->
-                    <p>Your basket is currently empty.</p>
+
+                    <?php if (isset($_SESSION["cart"]) && $_SESSION["cartCount"] > 0) { 
+                        $total = 0;
+                    ?>
+
+                    <table class="table table-striped">
+
+                        <thead>
+                            <tr>
+                                    <th scope="col"><b>Item</b></th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($_SESSION["cart"] as $key => $value) {
+                                    echo "<tr>";
+                                    echo (isset($value["Size"])) ? "<td>".$value["Name"]. " <b>(".$value["Size"].")</b></td>" : "<td>".$value["Name"]."</td>";
+                                    printf ("<td>£%0.2f</td>", $value["Price"]);
+                                    echo "<td><form action='http://localhost/website/Includes/removeCartItems.php' method='post'>";
+                                    echo "<input type='hidden' name='cartProductID' value='".$value["ProductID"]."'>";
+                                    echo "<button type='submit' name='cartDelete' class='btn btn-danger'>Remove</button></form></td>";
+                                    echo "</tr>";
+                                    $total += $value["Price"];
+                                }
+                            ?>
+
+                            <tr>
+                                <td><b>Total:</b></td>
+                                <td><b><?php printf ("£%0.2f", $total); ?></b></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <?php } else {
+                        echo "<p>Your basket is currently empty.</p>";
+                    } ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
@@ -235,7 +273,7 @@
             </div>
         </div>
 
-
+<!---------------Password Change Modal --------------->
 
         <div class="modal fade" id="passwordChangeModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

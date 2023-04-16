@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Drip Clothing - Checkout</title>
+    <title>Drip Clothing - Register</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -73,15 +73,15 @@
                         <div class="col-md-8">
                             <h2 class="mb-4">Account Creation</h2>
 
-                            <form action="http://localhost/website/Includes/register.php" method="post">
+                            <form id="registerForm" action="http://localhost/website/Includes/register.php" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="inputFirstName" class="form-label">First Name</label>
-                                        <input type="text" name="register[firstName]" class="form-control" id="inputFirstName">
+                                        <input type="text" name="register[firstName]" class="name form-control" id="inputFirstName">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputLastName" class="form-label">Last Name</label>
-                                        <input type="text" name="register[lastName]" class="form-control" id="inputLastName">
+                                        <input type="text" name="register[lastName]" class="name form-control" id="inputLastName">
                                     </div>
                                 </div>
 
@@ -115,8 +115,8 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="email" name="register[email]" class="form-control" id="inputEmail">
+                                        <label for="inputEmail" class="email form-label">Email</label>
+                                        <input type="text" name="register[email]" class="form-control" id="inputEmail">
                                     </div>
 
                                 </div>
@@ -133,7 +133,8 @@
                                 </div>
 
                                 <div class="row-mb-3">
-                                    <button type="submit" name="registerSubmit" class="btn btn-primary">Register</button>
+                                    <button type="submit" name="registerSubmit" onclick="checkForm('#registerForm')" class="btn btn-primary">Register</button>
+                                    <span id="errorMessage"></span>
                                 </div>
 
                                 <hr class="hr-splitter">
@@ -169,6 +170,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="http://localhost/website/assets/js/formValidation.js"></script>
 
 </body>
 

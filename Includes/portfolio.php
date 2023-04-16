@@ -12,7 +12,6 @@
 ?>
             <form action="http://localhost/website/Includes/addCartItems.php" method="post">
                 <input type="hidden" name="add[product]" value="<?php echo $productID; ?>">
-                <input type="hidden" name="url" value="<?php echo 'http://'. $SERVER['REQUEST_URI']; ?>">
                 <button type="submit" name="add[submit]" class="btn btn-primary">Add to Basket</button>
             </form>
 <?php
@@ -27,19 +26,18 @@
 
             <h4>Size</h4>
             <form action="http://localhost/website/Includes/addCartItems.php" method="post">
-            <select name="add[size]" id="" class="form-select mb-3" required>
+                <select name="add[size]" id="" class="form-select mb-3" required>
 
 <?php
 
-            while ($array = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-                if ($array["Amount"] > 0) {
-                    echo "<option value=".$array["Size"].">".$array["Size"]."</option>";
+                while ($array = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                    if ($array["Amount"] > 0) {
+                        echo "<option value='".$array["Size"]."'>".$array["Size"]."</option>";
+                    }
                 }
-            }
-?>
-            <input type="hidden" name="product" value="<?php echo $productID; ?>">
-            <input type="hidden" name="url" value="<?php echo 'http://'. $SERVER['REQUEST_URI']; ?>">
-            <button type="submit" name="add[submit]" class="btn btn-primary">Add to Basket</button>
+    ?>          </select>
+                <input type="hidden" name="add[product]" value="<?php echo $productID; ?>">
+                <button type="submit" name="add[submit]" class="btn btn-primary">Add to Basket</button>
             </form>
 <?php   
         }
@@ -134,7 +132,12 @@
                                     <hr class="hr-splitter" />
 
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                            <form action="http://localhost/website/reviewDisplay.php" method="get">
+                                                <input type="hidden" name="reviewItem" value="<?php echo $itemID; ?>">
+                                                <input type="hidden" name="reviewName" value="<?php echo $name; ?>">
+                                                <button type="submit" name="reviewSubmit" style="background-color: #ffffff; border: none; font-weight: 600" class="text-success mb-3">Customer Reviews</button>
+                                            </form>
                                             <h4>Product Description</h4>
                                             <p class="tab">
                                                 <?php echo $description; ?>
@@ -144,6 +147,7 @@
                                                 <?php printf("£%0.2f", $price); ?>
                                             </p>
                                             <?php displaySizes($itemID, $sqlConnection); ?>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +165,9 @@
 
 <?php
     function returnSearchItems($searchTag) {
+
         $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+        $searchTag = mysqli_real_escape_string($sqlConnection, $searchTag);
 
         if (mysqli_connect_errno()) {
             printf("Connection to DB failed: %s \n", mysqli_connect_error());

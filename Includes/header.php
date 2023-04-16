@@ -46,6 +46,7 @@
                     echo    '<ul>';
                     echo        '<li><a href="#" data-bs-toggle="modal" data-bs-target="#accountModal">Account</a></li>';
                     echo        '<li><a href="#" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a></li>';
+                    echo        '<li><a href="http://localhost/website/purchaseHistory.php">Purchase History</a></li>';
                     if (isset($_SESSION["account"]["AdminID"])) {
                         echo '<li><a href="http://localhost/website/ticketPage.php">View Tickets</a></li>';
                         echo '<li><a href="http://localhost/website/adminAccountsPage.php">Manage Users</a></li>';
