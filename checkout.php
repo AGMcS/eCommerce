@@ -73,11 +73,38 @@
                             <h2 class="mb-4">Your Cart Items</h2>
 
                             <?php
+
                                 if (isset($_SESSION["cart"])){ 
 
                                     $total = 0;
                                      
-                                    foreach ($_SESSION["cart"] as $key => $value) { ?>
+                                    foreach ($_SESSION["cart"] as $key => $value) {
+
+                                        
+                                            $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+    
+                                            if (mysqli_connect_errno()) {
+                                                printf ("Could not connect to DB: %s", mysqli_connect_error());
+                                            } else {
+                                                if (isset($value["Size"])) {
+                                                    $query = "SELECT * FROM stock WHERE ProductID = '". $value["ProductID"]. "' AND Size = '". $value["Size"]. "'";
+                                                } else {
+                                                    $query = "SELECT * FROM stock WHERE ProductID = '". $value["ProductID"]. "'";
+                                                }
+                                                $res = mysqli_query($sqlConnection, $query);
+
+                                                if ($res) {
+                                                    $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
+                                                    if ($value["Quantity"] > $array["Amount"]) {
+                                                        $overOrder = true;
+                                                        $overOrderedItem = $value["Name"];
+                                                        $overOrderedQuantity = $value["Quantity"];
+                                                    }
+                                                }
+                                            mysqli_close($sqlConnection);
+                                            }
+                                        
+                            ?>
                                         <div class="row mb-4 border border-4 rounded-pill">
                                             <div class="col-md-2">
                                             </div>
@@ -87,54 +114,56 @@
                                             <div class="col-md-6">
                                                 <h4 class="mt-3 mb-3"><?php echo $value["Name"]; ?></h4>
                                                 <p><?php echo (isset($value["Size"])) ? "Size: <b>".$value["Size"]. "</b>" : "Size: <b>-</b>"; ?></p>
+                                                <p><?php echo "Quantity: ".$value["Quantity"]; ?></p>
                                                 <p><?php printf ("Price: <b>£%0.2f</b>", $value["Price"]); ?></p>
                                                 <?php $total += $value["Price"]; ?>
                                             </div>
                                         </div>
-
-                                <?php
-                                    }
-                                ?>
+                            <?php   } ?>
                                     <div class="row mb-4 border border-4 rounded-pill">
                                         <h3 class="mt-2"><?php printf ("<b>Total: £%0.2f</b>", $total); ?></h3>
                                     </div>
                                 
-                            <?php
-                                } else {
+                            <?php } else {
                                     echo "<p>Your cart is empty</p>";
-                                } 
+                                }
                             ?>
                         </div>
 
                         <div class="col-md-5">
                             <h2 class="mb-4 text-center">Billing Details</h2>
 
-                            <form action="Includes/purchaseItems.php" method="post">
+                            <form id="billingForm" action="Includes/purchaseItems.php" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="payment[FirstName]" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="payment[FitstName]" name="payment[FirstName]">
+                                        <input type="text" oninput="checkLengthFeedback('payment[FirstName]', 'inputFirstNameLength', '32')" class="name small form-control" id="payment[FirstName]" name="payment[FirstName]">
+                                        <p><span id="inputFirstNameLength"></span></p>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="payment[LastName]" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="payment[LastName]" name="payment[LastName]">
+                                    <label for="payment[LastName]" class="form-label">Last Name</label>
+                                        <input type="text" oninput="checkLengthFeedback('payment[LastName]', 'inputLastNameLength', '32')" class="name small form-control" id="payment[LastName]" name="payment[LastName]">
+                                        <p><span id="inputLastNameLength"></span></p>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="payment[Email]" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="payment[Email]" name="payment[Email]">
+                                    <input type="email" oninput="checkLengthFeedback('payment[Email]', 'inputEmailLength', '100')" class="email med form-control" id="payment[Email]" name="payment[Email]">
+                                    <p><span id="inputEmailLength"></p>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="payment[Address]" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="payment[Address]" name="payment[Address]">
+                                    <input type="text" oninput="checkLengthFeedback('payment[Address]', 'inputAddressLength', '100')" class="med form-control" id="payment[Address]" name="payment[Address]">
+                                    <p><span id="inputAddressLength"></p>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="payment[City]" class="form-label">City</label>
-                                        <input type="text" class="form-control" id="payment[City]" name="payment[City]">
+                                        <input type="text" oninput="checkLengthFeedback('payment[City]', 'inputCityLength', '32')" class="small form-control" id="payment[City]" name="payment[City]">
+                                        <p><span id="inputCityLength"></p>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="payment[Country]" class="form-label">Country</label>
@@ -149,7 +178,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="payment{Postcode]" class="form-label">Zip</label>
+                                    <label for="payment{Postcode]" class="form-label">Postcode</label>
                                     <input type="text" class="form-control" id="payment[Postcode]" name="payment[Postcode]">
                                 </div>
 
@@ -159,26 +188,38 @@
 
                                 <div class="mb-3">
                                     <label for="payment[CardNumber]" class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" id="payment[CardNumber]" name="payment[CardNumber]">
+                                    <input type="text" class="cardNumber form-control" id="payment[CardNumber]" name="payment[CardNumber]">
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="payment[CardExpiration]" class="form-label">Expiration</label>
-                                        <input type="text" class="form-control" id="payment[CardExpiration]" name="payment[CardExpiration]" placeholder="MM/YY">
+                                        <input type="text" class="expiry form-control" id="payment[CardExpiration]" name="payment[CardExpiration]" placeholder="MM/YY">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="payment[CVV]" class="form-label">CVV</label>
-                                        <input type="text" class="form-control" id="payment[CVV]" name="payment[CVV]" placeholder="123">
+                                    <label for="payment[CVV]" class="form-label">CVV</label>
+                                        <input type="text" class="secCode form-control" id="payment[CVV]" name="payment[CVV]" placeholder="123">
                                     </div>
                                 </div>
                                 
-                                <?php if (isset($_SESSION["account"])) { ?>
-                                    <input type="hidden" name="payment[Total]" value="<?php echo $total; ?>">
-                                    <button type="submit" name="payment[submit]" class="btn btn-primary">Place Order</button>
-                                <?php } else { ?>
-                                    <p class="text-danger">Sorry, you must be logged in to make a purchase. No account? <a href="http://localhost/website/registerPage.php">Register here</a></p>
-                                <?php } ?>
+                                <div class="row mb-3 jusitfy-content-center">
+                                <?php 
+                                    if (isset($overOrder)) {
+                                ?>
+                                        <p class="text-danger text-center">Sorry, we may not have enough stock to cover your order of: </p>
+                                        <p class="text-danger text-center"><b><?php echo $overOrderedItem."  x  ". $overOrderedQuantity; ?></b></p>
+                            <?php   } else if (!isset($_SESSION["account"])) { ?>
+                                        <p class="text-danger text-center">Sorry, you must be logged in to make a purchase. No account? <a href="registerPage.php">Register here</a></p>
+                            <?php   } else if (isset($_GET["purchase"]) && $_GET["purchase"] == "unsuccessful") { ?>
+                                        <p class="text-danger text-center">Sorry, your purchase was unsuccessful</p>
+                            <?php   } else if (isset($_GET["purchase"]) && $_GET["purchase"] == "successful") { ?>
+                                        <p class="text-success text-center">Your purchase was successful! You can review your items in your <a href="purchaseHistory.php">Purchase History</a></p>
+                            <?php   } else { ?>
+                                        <input type="hidden" name="payment[Total]" value="<?php echo $total; ?>">
+                                        <button type="submit" onclick="checkForm('#billingForm', 'billingErrorMessage')" name="payment[submit]" class="btn btn-primary">Place Order</button>
+                            <?php   } ?>
+                                    <p class="text-center"><span id="billingErrorMessage"></span></p>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -210,6 +251,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/formValidation.js"></script>
 
 </body>
 

@@ -16,26 +16,21 @@
                     
                     foreach($_SESSION["cart"] as $key=> $value) {
                         $product = $value["ProductID"];
+                        $quantity = $value["Quantity"];
                         (isset($value["Size"])) ? $size = $value["Size"] : $size = null;
-                        $purchaseQuery = "INSERT INTO purchaseHistory VALUES ('$accountID', '$product', '$size' ,'$date', '$time')";
+                        $purchaseQuery = "INSERT INTO purchaseHistory VALUES ('$accountID', '$product', '$size', '$quantity', '$date', '$time')";
                         $addNewPurchase = mysqli_query($sqlConnection, $purchaseQuery);
 
                             if ($addNewPurchase) {
-                                $updateQuery = "UPDATE stock SET Amount = Amount - 1 WHERE Amount > 0 AND ProductID = '". $value["ProductID"]. "' AND Size = '". $value["Size"]. "'";
+                                $updateQuery = "UPDATE stock SET Amount = Amount - 1 WHERE Amount > 0 AND ProductID = '". $value["ProductID"]. "' AND Size = '". $size. "'";
                                 $updateStock = mysqli_query($sqlConnection, $updateQuery);
-
-                                if (!$addNewPurchase) {
-                                    echo "Your purchase was unsuccessful";
-                                }
                             } else {
-                                echo "Your purchase was unsuccessful";
+                                header("Location: ".$_SERVER["HTTP_REFERER"]."?purchase=unsuccessful");
                             }
                     }
-
-                    echo "Your purchase was successful!";
                     unset($_SESSION["cart"]);
                     $_SESSION["cartCount"] = 0;
-
+                    header("Location: ".$_SERVER["HTTP_REFERER"]."?purchase=successful");
                 }
 
             }

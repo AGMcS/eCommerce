@@ -1,6 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+
+    function deleteTicket($email, $date, $time) {
+
+        $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+        $query = "DELETE FROM userQueries WHERE Email = '$email' AND queryDate= '$date' AND time='$time'";
+
+        $res = mysqli_query($sqlConnection, $query);
+
+        if ($res == 1) {
+            header("location: ticketPage.php");
+        } else {
+            echo "ERROR";
+        }
+
+        mysqli_close($sqlConnection);
+    }
+
+    function displayTickets() {
+        $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+        $query = "SELECT * from userQueries ORDER BY queryDate";
+        $res = mysqli_query($sqlConnection, $query);
+
+        if ($res) {
+            while($array = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                static $count;
+                $count++;
+
+                $name = $array["Name"];
+                $email = $array["Email"];
+                $subject = $array["Subject"];
+                $message = $array["Message"];
+                $date = $array["queryDate"];
+                $time = $array["time"];
+
+                echo "<tr class='table-active'>";
+                echo "<td>".$count."</td>";
+                echo "<td>".$name."</td>";
+                echo "<td>".$email."</td>";
+                echo "<td><b><a href='#' data-bs-toggle='modal' class='text-success' data-bs-target='#Modal".$count."'>".$subject."</a></b></td>";
+                echo "<td>".$date."</td>";
+                echo "<td>".$time."</td>";
+                echo "<td><form action='Includes/deleteUserQueryTicket.php' method='post'>";
+                echo "<input type='hidden' name='delete[email]' value='".$email."'>";
+                echo "<input type='hidden' name='delete[date]' value='".$date."'>";
+                echo "<input type='hidden' name='delete[time]' value='".$time."'>";
+                echo "<input type='hidden' name='delete[count]' value='".$count."'>";
+                echo "<button type='submit' name='delete[".$count."submit]' class='btn btn-danger'>Delete</button>";
+                echo "</form></td>";
+                echo "</tr>";
+?>
+
+                <div class="modal fade" id="<?php echo "Modal".$count; ?>" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-light" id="signOutModalLabel"><?php echo $subject ?></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3 text-center">
+                                    <p><?php echo $message; ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <?php
+            }
+        }
+        mysqli_close($sqlConnection);
+    }
+?>
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

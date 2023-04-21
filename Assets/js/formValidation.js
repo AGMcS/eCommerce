@@ -1,10 +1,161 @@
-function checkForm(id) {
+function checkForm(id, error) {
+
+    //debugger;
 
 const form = document.querySelector(id);
-let errorMessage = "";
+let errorSpan = document.getElementById(error);
+
+form.addEventListener('submit', (event) => {
+    let field = form.querySelectorAll('input, select, textarea');
+    let hasEmptyFields = false;
+    let invalidName = false;
+    let invalidEmail = false;
+    let invalidCardNumber = false;
+    let invalidSecCode = false;
+    let invalidExpiry = false;
+    let tooLong = false;
+    let errorMessage = "";
+
+    field.forEach(field => {
+        field.value = field.value.trim();
+    
+        if (field.value === '' || field.value === null) {
+            hasEmptyFields = true;
+            field.style.borderWidth = "2px";
+            field.style.borderColor = "#FF0000";
+        } else {
+            field.style.borderWidth = "1px";
+            field.style.borderColor = "#000000";
+        }
+    
+        if (field.classList.contains('name')) {
+            if (inValidName(field.value)) {
+                invalidName = true;
+                field.style.borderColor = "#FF0000";
+                field.style.borderWidth = "2px";
+            } else {
+                field.style.borderWidth = "1px";
+                field.style.borderColor = "#000000";
+            }
+        }
+    
+        if (field.classList.contains('email')) {
+            if (inValidEmail(field.value)) {
+                invalidEmail = true;
+                field.style.borderColor = "#FF0000";
+                field.style.borderWidth = "2px";
+            } else {
+                field.style.borderWidth = "1px";
+                field.style.borderColor = "#000000";
+            }
+        }
+
+        if (field.classList.contains('cardNumber')) {
+
+            if (inValidCardNumber(field.value)) {
+                invalidCardNumber = true;
+                field.style.borderColor = "#FF0000";
+                field.style.borderWidth = "2px";
+            } else {
+                field.style.borderWidth = "1px";
+                field.style.borderColor = "#000000";
+            }
+        }
+
+        if (field.classList.contains('secCode')) {
+            if (inValidSecCode(field.value)) {
+                invalidSecCode = true;
+                field.style.borderColor = "#FF0000";
+                field.style.borderWidth = "2px";
+            } else {
+                field.style.borderWidth = "1px";
+                field.style.borderColor = "#000000";
+            }
+        }
+
+        if (field.classList.contains('expiry')) {
+            if (inValidExpiry(field.value)) {
+                invalidSecCode = true;
+                field.style.borderColor = "#FF0000";
+                field.style.borderWidth = "2px";
+            } else {
+                field.style.borderWidth = "1px";
+                field.style.borderColor = "#000000";
+            }
+        }
+
+        if (field.classList.contains('tiny')) {
+            if (checkLengthValidation(field.value, 8)) {
+                tooLong = true;
+            }
+        }
+
+        if (field.classList.contains('small')) {
+            if (checkLengthValidation(field.value, 32)) {
+                tooLong = true;
+            }
+        }
+
+        if (field.classList.contains('med')) {
+            if (checkLengthValidation(field.value, 100)) {
+                tooLong = true;
+            }
+        }
+
+        if (field.classList.contains('long')) {
+            if (checkLengthValidation(field.value, 500)) {
+                tooLong = true;
+            }
+        }
+
+    });
+
+    if (invalidEmail || invalidName || hasEmptyFields || invalidCardNumber || invalidSecCode || invalidExpiry || tooLong) {
+        errorMessage += "Cannot proceed: ";
+
+        if (invalidName) {
+            errorMessage += " -- Invalid Name(s)";
+        }
+
+        if (invalidEmail) {
+            errorMessage += " -- Invalid Email";
+        }
+
+        if (hasEmptyFields) {
+            errorMessage += " -- Some fields missing";
+        }
+
+        if (tooLong) {
+            errorMessage += " -- Character length exceeded";
+        }
+
+        if (invalidCardNumber || invalidSecCode || invalidExpiry) {
+            errorMessage += " -- Invalid card details";
+        }
+
+        event.preventDefault();
+        errorSpan.innerHTML = errorMessage;
+        errorSpan.style.color = "#FF0000";
+    }
+
+    if (document.getElementById('inValidPasswordMatch') != null) {
+        if(document.getElementById('inValidPasswordMatch').innerHTML != "Looks Good") {
+            event.preventDefault();
+        }
+    }
+
+    if (document.getElementById('confirmInValidPasswordMatch') != null) {
+        if(document.getElementById('confirmInValidPasswordMatch').innerHTML != "Looks Good") {
+            event.preventDefault();
+        }
+    }
+
+});
+
+}
 
 function inValidName(array) {
-    const pattern = /^(?!.[-']{2,})(?=.[-']?[a-zA-Z]{1,19}[a-zA-Z])[a-zA-Z\s'-]{1,20}$/;
+    const pattern = /^(?!.[-']{2,})(?=.[-']?[a-zA-Z]{1,31}[a-zA-Z])[a-zA-Z\s'-]{1,32}$/;
     if (!pattern.test(array)) {
         return true;
     } else {
@@ -21,69 +172,81 @@ function inValidEmail(array) {
     }
 }
 
-form.addEventListener('submit', (event) => {
-    let inputFields = form.querySelectorAll('input');
-    inputFields += form.querySelectorAll('select');
-    let hasEmptyFields = false;
-    let invalidName = false;
-    let invalidEmail = false;
-
-    for (let i = 0; i < inputFields.length; i++) {
-
-        if (inputFields[i].value === '') {
-            hasEmptyFields = true;
-            inputFields[i].style.borderWidth = "2px";
-            inputFields[i].style.borderColor = "#FF0000";
-            //break;
-        } else {
-            inputFields[i].style.borderWidth = "1px";
-            inputFields[i].style.borderColor = "#000000";
-        }
-        
-        if (inputFields[i].classList.contains('name')) {
-
-            if (inValidName(inputFields[i].value)) {
-                invalidName = true;
-                inputFields[i].style.borderColor = "#FF0000";
-                inputFields[i].style.borderWidth = "2px";
-            } else {
-                inputFields[i].style.borderWidth = "1px";
-                inputFields[i].style.borderColor = "#000000";
-            }
-        }
-
-        if (inputFields[i].classList.contains('email')) {
-
-            if (inValidEmail(inputFields[i].value)) {
-                invalidEmail = true;
-                inputFields[i].style.borderColor = "#FF0000";
-                inputFields[i].style.borderWidth = "2px";
-            } else {
-                inputFields[i].style.borderWidth = "1px";
-                inputFields[i].style.borderColor = "#000000";
-            }
-        }
+function inValidCardNumber(array) {
+    const pattern = /^\d{16}$/;
+    if (!pattern.test(array)) {
+        return true;
+    } else {
+        return false;
     }
+}
 
-    if (invalidEmail || invalidName || hasEmptyFields) {
-        errorMessage += "Cannot proceed: ";
-
-        if (invalidName) {
-            errorMessage += "Invalid Name(s)";
-        }
-
-        if (invalidEmail) {
-            errorMessage += "Invalid Email";
-        }
-
-        if (hasEmptyFields) {
-            errorMessage += "Some fields missing";
-        }
-
-        event.preventDefault();
-        document.getElementById("errorMessage").innerHTML = "test";
-        document.getElementById("errorMessage").style.color = "#FF0000";
+function inValidSecCode(array) {
+    const pattern = /^\d{3}$/;
+    if (!pattern.test(array)) {
+        return true;
+    } else {
+        return false;
     }
-});
+}
 
+function inValidExpiry(array) {
+    const pattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    if (!pattern.test(array)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function inValidPassword(id1, id2, spanID, size) {
+    const pattern = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9])[a-zA-Z\\d\\W]{7,${size}}$`);
+    const field1 = document.getElementById(id1);
+    const field2 = document.getElementById(id2);
+    const message = document.getElementById(spanID);
+
+        if (!pattern.test(field1.value)) {
+            message.style.color = "#FF0000";
+            message.innerHTML = "Too weak"
+        } else if (field1.value != field2.value) {
+            message.style.color = "#FF0000";
+            message.innerHTML = "Passwords do not match";
+        } else if (field1.value == field2.value) {
+            message.style.color = "#00FF00";
+            message.innerHTML = "Looks Good";
+        }
+}
+
+// function passwordMatch(id1, id2, spanID) {
+//     const pattern = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9])[a-zA-Z\\d\\W]{7,${size}}$`);
+//     const field1 = document.getElementById(id1);
+//     const field2 = document.getElementById(id2);
+//     const message = document.getElementById(spanID);
+
+//      if (field1.value == field2.value){
+//         message.style.color = "#00FF00";
+//         message.innerHTML = "Looks Good";
+//     }
+// }
+
+
+function checkLengthFeedback(id, spanID, size) {
+    const pattern = new RegExp(`^.{0,${size}}$`);
+    const field = document.getElementById(id);
+    const message = document.getElementById(spanID);
+    if (!pattern.test(field.value)) {
+        message.style.color = "#FF0000";
+        message.innerHTML = "Too many characters"
+    } else {
+        message.innerHTML = "";
+    }
+}
+
+function checkLengthValidation(array, size) {
+    const pattern = new RegExp(`^.{0,${size}}$`);
+    if (!pattern.test(array)) {
+        return true;
+    } else {
+        return false;
+    }
 }

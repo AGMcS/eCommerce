@@ -23,6 +23,8 @@ if (isset ($_POST["add"]["submit"])) {
             $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
             $_SESSION["cartCount"]++;   
             $_SESSION["cart"][$_SESSION["cartCount"]] = $array;
+            $_SESSION["cart"][$_SESSION["cartCount"]] += array("Quantity" => $_POST["add"]["quantity"]);
+            $_SESSION["cart"][$_SESSION["cartCount"]]["Price"] = $_SESSION["cart"][$_SESSION["cartCount"]]["Price"] * $_POST["add"]["quantity"];
         }
 
         mysqli_close($sqlConnection);

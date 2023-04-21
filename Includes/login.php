@@ -3,13 +3,9 @@
 
 if (isset($_POST["signInSubmit"])) {
 
-    include("validationtest.php");
-
     session_start();
     $_SESSION["email"] = htmlspecialchars($_POST["signInEmail"]);
     $_SESSION["password"] = htmlspecialchars($_POST["signInPassword"]);
-
-    loginValidation($_SESSION["email"], $_SESSION["password"]);
 
     $sqlConnection = mysqli_connect("localhost", "root", "", "dummyForm");
     $email = mysqli_real_escape_string($sqlConnection, $_POST["signInEmail"]);
@@ -35,7 +31,7 @@ if (isset($_POST["signInSubmit"])) {
             }
             header("location: ../index.php");
         } else {
-            header("location: http://localhost/website/index.php?wrongCredentials=Incorrect+email+or+password");
+            header("location: ../index.php?wrongCredentials=Incorrect+email+or+password");
         }
     }
 } else {

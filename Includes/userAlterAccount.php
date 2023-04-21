@@ -21,10 +21,19 @@
             } 
         }
         mysqli_close($sqlConnection);
-        header("location: http://localhost/website/index.php");
+        header("Location: ../index.php");
     } else if (isset($_POST["edit"]["submit"])) {
 
+        foreach($_POST["edit"] as $key => &$value) {
+            $value = strip_tags($value);
+            $value = htmlspecialchars($value);
+        }
+
         $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+
+        foreach($_POST["edit"] as $key => &$value) {
+            $value = mysqli_real_escape_string($sqlConnection, $value);
+        }
 
         if (mysqli_connect_errno()) {
             printf ("Could not connect to DB: %s", mysqli_connect_error());
@@ -57,13 +66,18 @@
             }
 
             mysqli_close($sqlConnection);
-            header("location: http://localhost/website/index.php");
+            header("location: ../index.php");
         }
     } else if (isset($_POST["password"]["submit"]) && 
     $_POST["password"]["old"] == $_SESSION["account"]["Password"] &&
     $_POST["password"]["new"] == $_POST["password"]["confirm"]) {
 
+        $newPassword = strip_tags($newPassword);
+        $newPassword = htmlspecialchars($_POST["password"]["new"]);
+
         $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+
+        $newPassword = mysqli_real_escape_string($sqlConnection, $newPassword);
 
         if (mysqli_connect_errno()) {
             printf("Could not connect to DB: %S", mysqli_connect_error());
@@ -78,7 +92,7 @@
             }
 
             mysqli_close($sqlConnection);
-            header("location: http://localhost/website/index.php");
+            header("location: ../index.php");
         }
     }
 ?>

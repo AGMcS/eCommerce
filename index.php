@@ -637,24 +637,23 @@
                         <form id="contactForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" role="form" class="form-control">
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <input type="text" name="contactUsName" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" name="contactUsName" class="name small form-control" id="name" placeholder="Your Name">
                                 </div>
                                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                                    <input type="email" class="form-control" name="contactUsEmail" id="email" placeholder="Your Email">
+                                    <input type="text" class="email med form-control" name="contactUsEmail" id="email" placeholder="Your Email">
                                 </div>
                             </div>
                             <div class="form-group mt-3">
-                                <input type="text" class="form-control" name="contactUsSubject" id="subject" placeholder="Subject">
+                                <input type="text" class="med form-control" name="contactUsSubject" id="subject" placeholder="Subject">
                             </div>
                             <div class="form-group mt-3">
-                                <textarea class="form-control" name="contactUsMessage" rows="7" placeholder="Message"></textarea>
+                                <textarea class="form-control" name="contactUsMessage" rows="7" style="height: 312px;" placeholder="Message"></textarea>
                             </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                            <div class="text-center">
+                                <p><span id="contactError"></span></p>
+                                <button type="submit" onclick="checkForm('#contactForm', 'contactError')" class="btn btn-primary" name="contactUsSubmit">Send Message</button>
                             </div>
-                            <div class="text-center"><button type="submit" onclick="checkForm('#contactForm')" class="btn btn-primary" name="contactUsSubmit">Send Message</button></div>
+                            
                         </form>
                         <?php
                             include("Includes/contact.php");
@@ -694,7 +693,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <script src="http://localhost/website/assets/js/formValidation.js"></script>
+    <script src="assets/js/formValidation.js"></script>
 
 </body>
 

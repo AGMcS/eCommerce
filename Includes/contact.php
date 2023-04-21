@@ -3,6 +3,8 @@
 function contact($name, $email, $subject, $message) {
     $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
 
+    $message = htmlspecialchars($message);
+
     $name = mysqli_real_escape_string($sqlConnection, $name);
     $email = mysqli_real_escape_string($sqlConnection, $email);
     $subject = mysqli_real_escape_string($sqlConnection, $subject);

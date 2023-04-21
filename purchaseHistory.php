@@ -77,7 +77,7 @@
                             printf("Could not connect to DB: %s", mysqli_connect_error());
                         } else {
 
-                            $query = "SELECT product.ImagePath, product.Name, purchaseHistory.Size, purchaseHistory.ProductID, purchaseHistory.PurchaseDate FROM purchaseHistory JOIN product ON purchaseHistory.ProductID = product.ProductID WHERE AccountID = '".$_SESSION["account"]["AccountID"]."' ORDER BY purchaseDate DESC";
+                            $query = "SELECT product.ImagePath, product.Name, purchaseHistory.Size, purchaseHistory.Quantity, purchaseHistory.ProductID, purchaseHistory.PurchaseDate FROM purchaseHistory JOIN product ON purchaseHistory.ProductID = product.ProductID WHERE AccountID = '".$_SESSION["account"]["AccountID"]."' ORDER BY purchaseDate DESC";
 
                             $res = mysqli_query($sqlConnection, $query);
                             $count = mysqli_num_rows($res);
@@ -96,9 +96,18 @@
                                         <div class="col-md-6">
                                             <h4 class="mt-3 mb-3"><?php echo $array["Name"]; ?></h4>
                                             <p><?php echo (isset($array["Size"])) ? "Size: <b>".$array["Size"]. "</b>" : "Size: <b>-</b>"; ?></p>
+                                            <p><?php echo "Quantity: <b>".$array["Quantity"]."</b>"; ?></p>
                                             <p><?php echo "Purchased on: <b>".$array["PurchaseDate"]. "</b>" ?></p>
                                         </div>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="<?php echo '#'. $array["ProductID"].'reviewModal'; ?>"><b style="color: #006460;">Leave A Review</b></a>
+                                        <?php
+                                            $fetchReviewQuery = "SELECT * FROM reviews WHERE AccountID = '". $_SESSION["account"]["AccountID"]. "' AND ProductID = '". $array["ProductID"]. "'";
+                                            $fetchReview = mysqli_query($sqlConnection, $fetchReviewQuery);
+                                            $reviewCount = mysqli_num_rows($fetchReview);
+
+                                            if ($reviewCount == 0) {
+                                        ?>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="<?php echo '#'. $array["ProductID"].'reviewModal'; ?>"><b style="color: #006460;">Leave A Review</b></a>
+                                    <?php   } ?> 
                                     </div>
 
                                     <!--------- Item Review Modal Box ------->
@@ -111,11 +120,11 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="http://localhost/website/Includes/submitReview.php" method="post">
+                                                    <form id="<?php echo "reviewForm".$array["ProductID"]; ?>" action="Includes/submitReview.php" method="post">
 
                                                         <div class="row mb-3">
-                                                            <label for="reviewScore" class="form-label">Score</label>
-                                                            <select id="reviewScore" name="review[score]" class="form-select">
+                                                            <label for="<?php echo "reviewScore".$array["ProductID"]; ?>" class="form-label">Score</label>
+                                                            <select id="<?php echo "reviewScore".$array["ProductID"]; ?>" name="review[score]" class="form-select">
                                                                 <option value="">Choose...</option>
                                                                 <option value="1">1</option>
                                                                 <option value="2">2</option>
@@ -126,18 +135,21 @@
                                                         </div>
                                                         
                                                         <div class="row mb-3">
-                                                            <label for="reviewTitle" class="form-label">Title</label>
-                                                            <input type="text" name="review[title]" class="form-control" id="reviewTitle">
+                                                            <label for="<?php echo "reviewTitle".$array["ProductID"]; ?>" class="form-label">Title</label>
+                                                            <input type="text" oninput='checkLengthFeedback("<?php echo "reviewTitle".$array["ProductID"]; ?>", "<?php echo "reviewTitle".$array["ProductID"]."Length"; ?>", "100")' name="review[title]" class="med form-control" id="<?php echo "reviewTitle".$array["ProductID"]; ?>">
+                                                            <p><span id="<?php echo "reviewTitle".$array["ProductID"]."Length"; ?>"></span></p>
                                                         </div>
 
                                                         <div class="row mb-3">
-                                                            <label for="reviewBody" class="form-label">Leave your thoughts and opinions (no more than 100 characters)</label>
-                                                            <textarea type="text" name="review[body]" class="form-control" rows="3" id="reviewBody"></textarea>
+                                                            <label for="<?php echo "reviewBody".$array["ProductID"]; ?>" class="form-label">Leave your thoughts and opinions (no more than 500 characters)</label>
+                                                            <textarea type="text" oninput='checkLengthFeedback("<?php echo "reviewBody".$array["ProductID"]; ?>", "<?php echo "reviewBody".$array["ProductID"]."Length"; ?>", "500")' name="review[body]" class="long form-control" rows="3" id="<?php echo "reviewBody".$array["ProductID"]; ?>"></textarea>
+                                                            <p><span id="<?php echo "reviewBody".$array["ProductID"]."Length"; ?>"></span></p>
                                                         </div>
 
                                                         <div class="d-grid">
                                                             <input type="hidden" name="review[product]" value="<?php echo $array["ProductID"]; ?>">
-                                                            <button type="submit" name="review[submit]" class="btn btn-primary">Leave Review</button>
+                                                            <button type="submit" onclick='checkForm("<?php echo "#reviewForm".$array["ProductID"]; ?>", "<?php echo "reviewForm".$array["ProductID"]."Error"; ?>")' name="review[submit]" class="btn btn-primary">Leave Review</button>
+                                                            <p class="text-center"><span id="<?php echo "reviewForm".$array["ProductID"]."Error"; ?>"></span></p>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -180,6 +192,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/formValidation.js"></script>
 
 </body>
 

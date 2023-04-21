@@ -73,27 +73,31 @@
                         <div class="col-md-8">
                             <h2 class="mb-4">Account Creation</h2>
 
-                            <form id="registerForm" action="http://localhost/website/Includes/register.php" method="post">
+                            <form id="registerForm" action="Includes/register.php" method="post">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="inputFirstName" class="form-label">First Name</label>
-                                        <input type="text" name="register[firstName]" class="name form-control" id="inputFirstName">
+                                        <input type="text" oninput="checkLengthFeedback('inputFirstName', 'inputFirstNameLength', '32')" name="register[firstName]" class="name small form-control" id="inputFirstName">
+                                        <p><span id="inputFirstNameLength"></span></p>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputLastName" class="form-label">Last Name</label>
-                                        <input type="text" name="register[lastName]" class="name form-control" id="inputLastName">
+                                        <input type="text" oninput="checkLengthFeedback('inputLastName', 'inputLastNameLength', '32')" name="register[lastName]" class="name small form-control" id="inputLastName">
+                                        <p><span id="inputLastNameLength"></span></p>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="inputAddress" class="form-label">Address</label>
-                                    <input type="text" name="register[street]" class="form-control" id="inputAddress">
+                                    <label for="inputAddress" class="form-label">Street</label>
+                                    <input type="text" oninput="checkLengthFeedback('inputAddress', 'inputAddressLength', '100')" name="register[street]" class="med form-control" id="inputAddress">
+                                    <p><span id="inputAddressLength"></span></p>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="inputCity" class="form-label">City</label>
-                                        <input type="text" name="register[city]" class="form-control" id="inputCity">
+                                        <input type="text" oninput="checkLengthFeedback('inputCity', 'inputCityLength', '32')" name="register[city]" class="small form-control" id="inputCity">
+                                        <p><span id="inputCityLength"></span></p>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="inputCountry" class="form-label">Country</label>
@@ -110,13 +114,15 @@
                                 <div class="row mb-3">
 
                                     <div class="col-md-6">
-                                        <label for="inputZip" class="form-label">Zip</label>
-                                        <input type="text" name="register[postcode]" class="form-control" id="inputZip">
+                                        <label for="inputPostcode" class="form-label">Postcode</label>
+                                        <input type="text" oninput="checkLengthFeedback('inputPostcode', 'inputPostcodeLength', '8')" name="register[postcode]" class="form-control" id="inputPostcode">
+                                        <p><span id="inputPostcodeLength"></span></p>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="inputEmail" class="form-label">Email</label>
-                                        <input type="text" name="register[email]" class="email form-control" id="inputEmail">
+                                        <input type="text" oninput="checkLengthFeedback('inputEmail', 'inputEmailLength', '100')" name="register[email]" class="med email form-control" id="inputEmail">
+                                        <p><span id="inputEmailLength"></span></p>
                                     </div>
 
                                 </div>
@@ -124,17 +130,24 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="registerPassword" class="form-label">Password</label>
-                                        <input type="password" name="register[password]" id="registerPassword" class="form-control">
+                                        <input type="password" oninput="inValidPassword('registerPassword', 'registerConfirmPassword', 'inValidPasswordMatch', '32')" name="register[password]" id="registerPassword" class="validPassword form-control">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="registerConfirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" name="register[confirmPassword]" id="registerConfirmPassword" class="form-control">
+                                        <input type="password" oninput="inValidPassword('registerPassword', 'registerConfirmPassword', 'inValidPasswordMatch', '32')" name="register[confirmPassword]" id="registerConfirmPassword" class="validPassword form-control">
                                     </div>
+                                    <p id="inValidPasswordMatch" class="text-center">  </p>
                                 </div>
 
                                 <div class="row-mb-3">
-                                    <button type="submit" name="registerSubmit" onclick="checkForm('#registerForm')" class="btn btn-primary">Register</button>
-                                    <span id="errorMessage"></span>
+                                    <p class="text-center"><span id="registerError"></span></p>
+                                    <button type="submit" name="registerSubmit" onclick="checkForm('#registerForm', 'registerError')" class="btn btn-primary">Register</button>
+                                </div>
+
+                                <div class="row-mb-3 text-center">
+                                    <?php if (isset($_GET["EmailAlreadyExists"])) {
+                                        echo "<p class='text-danger text-center'>Unable to register - Email already exists</p>";
+                                    } ?>
                                 </div>
 
                                 <hr class="hr-splitter">
@@ -170,7 +183,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <script src="http://localhost/website/assets/js/formValidation.js"></script>
+    <script src="assets/js/formValidation.js"></script>
 
 </body>
 
