@@ -115,8 +115,8 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="inputEmail" class="email form-label">Email</label>
-                                        <input type="text" name="register[email]" class="form-control" id="inputEmail">
+                                        <label for="inputEmail" class="form-label">Email</label>
+                                        <input type="text" name="register[email]" class="email form-control" id="inputEmail">
                                     </div>
 
                                 </div>

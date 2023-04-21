@@ -177,7 +177,7 @@
                                     <input type="hidden" name="payment[Total]" value="<?php echo $total; ?>">
                                     <button type="submit" name="payment[submit]" class="btn btn-primary">Place Order</button>
                                 <?php } else { ?>
-                                    <p class="text-danger">Sorry, you must have an account to make a purchase</p>
+                                    <p class="text-danger">Sorry, you must be logged in to make a purchase. No account? <a href="http://localhost/website/registerPage.php">Register here</a></p>
                                 <?php } ?>
                             </form>
                         </div>

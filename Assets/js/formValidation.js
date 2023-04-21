@@ -1,6 +1,7 @@
 function checkForm(id) {
 
 const form = document.querySelector(id);
+let errorMessage = "";
 
 function inValidName(array) {
     const pattern = /^(?!.[-']{2,})(?=.[-']?[a-zA-Z]{1,19}[a-zA-Z])[a-zA-Z\s'-]{1,20}$/;
@@ -21,7 +22,8 @@ function inValidEmail(array) {
 }
 
 form.addEventListener('submit', (event) => {
-    const inputFields = form.querySelectorAll('input');
+    let inputFields = form.querySelectorAll('input');
+    inputFields += form.querySelectorAll('select');
     let hasEmptyFields = false;
     let invalidName = false;
     let invalidEmail = false;
@@ -63,21 +65,23 @@ form.addEventListener('submit', (event) => {
         }
     }
 
-    if (invalidName) {
-        event.preventDefault();
-        document.getElementById("errorMessage").innerHTML = "Invalid Name(s)";
-        document.getElementById("errorMessage").style.color = "#FF0000";
-    }
+    if (invalidEmail || invalidName || hasEmptyFields) {
+        errorMessage += "Cannot proceed: ";
 
-    if (invalidEmail) {
-        event.preventDefault();
-        document.getElementById("errorMessage").innerHTML = "Invalid Email";
-        document.getElementById("errorMessage").style.color = "#FF0000";
-    }
+        if (invalidName) {
+            errorMessage += "Invalid Name(s)";
+        }
 
-    if (hasEmptyFields) {
+        if (invalidEmail) {
+            errorMessage += "Invalid Email";
+        }
+
+        if (hasEmptyFields) {
+            errorMessage += "Some fields missing";
+        }
+
         event.preventDefault();
-        document.getElementById("errorMessage").innerHTML = "Some fields missing";
+        document.getElementById("errorMessage").innerHTML = "test";
         document.getElementById("errorMessage").style.color = "#FF0000";
     }
 });
