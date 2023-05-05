@@ -5,22 +5,29 @@
 <header id="header" class="header d-flex align-items-center">
 
 <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-    <a href="index.html" class="logo d-flex align-items-center">
+    <a href="index.php" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/dripTabLogo.png" alt=""> -->
+        <img src="assets/img/dripTabLogo.png" alt="">
         <h1>Drip<span>Clothing</span></h1>
     </a>
 
     <!--search bar-->
     <form id="searchForm" action="index.php#shop" method="get" class="d-flex ms-auto">
-        <input class="form-control me-2" id="searchTags" name="searchTags" type="text" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" id="searchTags" name="searchTags" type="text" placeholder="Search Products" aria-label="Search">
         <button class="btn-search" id="searchSubmit" name="searchSubmit" type="submit"><i class="bi bi-search"></i></button>
     </form>
 
     <nav id="navbar" class="navbar">
         <ul>
             <li><a href="index.php#hero">Home</a></li>
-            <li><a href="index.php#about">About</a></li>
+            <li class="dropdown">
+                <a href="#about"><span>About</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                    <li><a href="index.php#about">About Us</a></li>
+                    <li><a href="index.php#testimonials">Testimonials</a></li>
+                    <li><a href="index.php#team">Our Team</a></li>
+                </ul>
+            </li>
             <li class="dropdown">
                 <a href="#shop"><span>Shop</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>

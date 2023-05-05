@@ -22,7 +22,7 @@
                         $addNewPurchase = mysqli_query($sqlConnection, $purchaseQuery);
 
                             if ($addNewPurchase) {
-                                $updateQuery = "UPDATE stock SET Amount = Amount - 1 WHERE Amount > 0 AND ProductID = '". $value["ProductID"]. "' AND Size = '". $size. "'";
+                                $updateQuery = "UPDATE stock SET Amount = Amount - ".$quantity." WHERE Amount > 0 AND ProductID = '". $value["ProductID"]. "' AND Size = '". $size. "'";
                                 $updateStock = mysqli_query($sqlConnection, $updateQuery);
                             } else {
                                 header("Location: ".$_SERVER["HTTP_REFERER"]."?purchase=unsuccessful");

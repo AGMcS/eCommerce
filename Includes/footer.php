@@ -18,10 +18,10 @@
                 <div class="col-lg-2 col-6 footer-links">
                     <h4>Useful Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#aboutus">About us</a></li>
-                        <li><a href="#shop">Services</a></li>
-                        <li><a href="#faq">Frequently Asked Questions</a></li>
+                        <li><a href="index.php#home">Home</a></li>
+                        <li><a href="index.php#about">About us</a></li>
+                        <li><a href="index.php#shop">Services</a></li>
+                        <li><a href="index.php#faq">Frequently Asked Questions</a></li>
                     </ul>
                 </div>
 
@@ -44,13 +44,6 @@
         <div class="container mt-4">
             <div class="copyright">
                 &copy; Copyright <strong><span>Drip Clothing Company</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/impact-bootstrap-business-website-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
             </div>
         </div>
 

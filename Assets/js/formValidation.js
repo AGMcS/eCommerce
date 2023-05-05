@@ -1,7 +1,5 @@
 function checkForm(id, error) {
 
-    //debugger;
-
 const form = document.querySelector(id);
 let errorSpan = document.getElementById(error);
 
@@ -14,103 +12,114 @@ form.addEventListener('submit', (event) => {
     let invalidSecCode = false;
     let invalidExpiry = false;
     let tooLong = false;
+    let invalidDelete = false;
     let errorMessage = "";
 
     field.forEach(field => {
         field.value = field.value.trim();
     
-        if (field.value === '' || field.value === null) {
-            hasEmptyFields = true;
-            field.style.borderWidth = "2px";
-            field.style.borderColor = "#FF0000";
-        } else {
-            field.style.borderWidth = "1px";
-            field.style.borderColor = "#000000";
-        }
-    
-        if (field.classList.contains('name')) {
-            if (inValidName(field.value)) {
-                invalidName = true;
-                field.style.borderColor = "#FF0000";
+        if (!field.classList.contains('optional')) {
+
+            if (field.value === '' || field.value === null) {
+                hasEmptyFields = true;
                 field.style.borderWidth = "2px";
+                field.style.borderColor = "#FF0000";
             } else {
                 field.style.borderWidth = "1px";
                 field.style.borderColor = "#000000";
             }
-        }
-    
-        if (field.classList.contains('email')) {
-            if (inValidEmail(field.value)) {
-                invalidEmail = true;
-                field.style.borderColor = "#FF0000";
-                field.style.borderWidth = "2px";
-            } else {
-                field.style.borderWidth = "1px";
-                field.style.borderColor = "#000000";
+        
+            if (field.classList.contains('name')) {
+                if (inValidName(field.value)) {
+                    invalidName = true;
+                    field.style.borderColor = "#FF0000";
+                    field.style.borderWidth = "2px";
+                } else {
+                    field.style.borderWidth = "1px";
+                    field.style.borderColor = "#000000";
+                }
             }
-        }
-
-        if (field.classList.contains('cardNumber')) {
-
-            if (inValidCardNumber(field.value)) {
-                invalidCardNumber = true;
-                field.style.borderColor = "#FF0000";
-                field.style.borderWidth = "2px";
-            } else {
-                field.style.borderWidth = "1px";
-                field.style.borderColor = "#000000";
+        
+            if (field.classList.contains('email')) {
+                if (inValidEmail(field.value)) {
+                    invalidEmail = true;
+                    field.style.borderColor = "#FF0000";
+                    field.style.borderWidth = "2px";
+                } else {
+                    field.style.borderWidth = "1px";
+                    field.style.borderColor = "#000000";
+                }
             }
-        }
 
-        if (field.classList.contains('secCode')) {
-            if (inValidSecCode(field.value)) {
-                invalidSecCode = true;
-                field.style.borderColor = "#FF0000";
-                field.style.borderWidth = "2px";
-            } else {
-                field.style.borderWidth = "1px";
-                field.style.borderColor = "#000000";
-            }
-        }
+            if (field.classList.contains('cardNumber')) {
 
-        if (field.classList.contains('expiry')) {
-            if (inValidExpiry(field.value)) {
-                invalidSecCode = true;
-                field.style.borderColor = "#FF0000";
-                field.style.borderWidth = "2px";
-            } else {
-                field.style.borderWidth = "1px";
-                field.style.borderColor = "#000000";
+                if (inValidCardNumber(field.value)) {
+                    invalidCardNumber = true;
+                    field.style.borderColor = "#FF0000";
+                    field.style.borderWidth = "2px";
+                } else {
+                    field.style.borderWidth = "1px";
+                    field.style.borderColor = "#000000";
+                }
             }
-        }
 
-        if (field.classList.contains('tiny')) {
-            if (checkLengthValidation(field.value, 8)) {
-                tooLong = true;
+            if (field.classList.contains('secCode')) {
+                if (inValidSecCode(field.value)) {
+                    invalidSecCode = true;
+                    field.style.borderColor = "#FF0000";
+                    field.style.borderWidth = "2px";
+                } else {
+                    field.style.borderWidth = "1px";
+                    field.style.borderColor = "#000000";
+                }
             }
-        }
 
-        if (field.classList.contains('small')) {
-            if (checkLengthValidation(field.value, 32)) {
-                tooLong = true;
+            if (field.classList.contains('expiry')) {
+                if (inValidExpiry(field.value)) {
+                    invalidSecCode = true;
+                    field.style.borderColor = "#FF0000";
+                    field.style.borderWidth = "2px";
+                } else {
+                    field.style.borderWidth = "1px";
+                    field.style.borderColor = "#000000";
+                }
             }
-        }
 
-        if (field.classList.contains('med')) {
-            if (checkLengthValidation(field.value, 100)) {
-                tooLong = true;
+            if (field.classList.contains('tiny')) {
+                if (checkLengthValidation(field.value, 8)) {
+                    tooLong = true;
+                }
             }
-        }
 
-        if (field.classList.contains('long')) {
-            if (checkLengthValidation(field.value, 500)) {
-                tooLong = true;
+            if (field.classList.contains('small')) {
+                if (checkLengthValidation(field.value, 32)) {
+                    tooLong = true;
+                }
             }
+
+            if (field.classList.contains('med')) {
+                if (checkLengthValidation(field.value, 100)) {
+                    tooLong = true;
+                }
+            }
+
+            if (field.classList.contains('long')) {
+                if (checkLengthValidation(field.value, 500)) {
+                    tooLong = true;
+                }
+            }
+
+            if (field.classList.contains('delete')) {
+                if (checkDelete(field.value)) {
+                    invalidDelete = true;
+                }
+            }
+
         }
 
     });
 
-    if (invalidEmail || invalidName || hasEmptyFields || invalidCardNumber || invalidSecCode || invalidExpiry || tooLong) {
+    if (invalidEmail || invalidName || hasEmptyFields || invalidCardNumber || invalidSecCode || invalidExpiry || tooLong || invalidDelete) {
         errorMessage += "Cannot proceed: ";
 
         if (invalidName) {
@@ -131,6 +140,10 @@ form.addEventListener('submit', (event) => {
 
         if (invalidCardNumber || invalidSecCode || invalidExpiry) {
             errorMessage += " -- Invalid card details";
+        }
+
+        if(invalidDelete) {
+            errorMessage += " -- You must enter 'DELETE'";
         }
 
         event.preventDefault();
@@ -217,17 +230,14 @@ function inValidPassword(id1, id2, spanID, size) {
         }
 }
 
-// function passwordMatch(id1, id2, spanID) {
-//     const pattern = new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9])[a-zA-Z\\d\\W]{7,${size}}$`);
-//     const field1 = document.getElementById(id1);
-//     const field2 = document.getElementById(id2);
-//     const message = document.getElementById(spanID);
+function checkDelete(array) {
 
-//      if (field1.value == field2.value){
-//         message.style.color = "#00FF00";
-//         message.innerHTML = "Looks Good";
-//     }
-// }
+    if (array != 'DELETE') {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 
 function checkLengthFeedback(id, spanID, size) {
@@ -249,4 +259,41 @@ function checkLengthValidation(array, size) {
     } else {
         return false;
     }
+}
+
+function checkAdminID(formID, adminID, error) {
+
+    const form = document.querySelector(formID);
+    let errorSpan = document.getElementById(error);
+
+    form.addEventListener('submit', (event) => {
+        let field = form.querySelectorAll('input, select, textarea');
+        let errorMessage = "";
+        let invalidID = false;
+
+        field.forEach(field => {
+            field.value = field.value.trim();
+        
+            if (field.classList.contains('optional')) {
+
+                if(field.value != adminID) {
+                    invalidID = true;
+                }
+            }
+
+        });
+
+        if (invalidID) {
+            errorMessage += "Cannot proceed: ";
+
+            if(invalidID) {
+                errorMessage += "Incorrect Administrator ID";
+            }
+
+            event.preventDefault();
+            errorSpan.innerHTML = errorMessage;
+            errorSpan.style.color = "#FF0000";
+        }
+    });
+
 }

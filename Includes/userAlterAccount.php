@@ -4,24 +4,24 @@
 
     if(isset($_POST["edit"]["delete"])) {
 
-        unset($_SESSION["account"]["FirstName"]);
-
         $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
 
         if (mysqli_connect_errno()) {
             printf ("Could not connect to DB: %s", mysqli_connect_error());
         } else {
-            $queryString = "DELETE FROM account WHERE AccountID = '".$_POST["edit"]["id"]."'";
+            $queryString = "DELETE FROM account WHERE AccountID = '".$_SESSION["account"]["AccountID"]."'";
             $update = mysqli_query($sqlConnection, $queryString);
 
             if ($update) {
                 if(isset($_POST["edit"])) {
                     unset($_POST["edit"]);
                 }
+                unset($_SESSION["account"]);
             } 
         }
         mysqli_close($sqlConnection);
         header("Location: ../index.php");
+
     } else if (isset($_POST["edit"]["submit"])) {
 
         foreach($_POST["edit"] as $key => &$value) {
@@ -68,31 +68,44 @@
             mysqli_close($sqlConnection);
             header("location: ../index.php");
         }
-    } else if (isset($_POST["password"]["submit"]) && 
-    $_POST["password"]["old"] == $_SESSION["account"]["Password"] &&
-    $_POST["password"]["new"] == $_POST["password"]["confirm"]) {
 
-        $newPassword = strip_tags($newPassword);
-        $newPassword = htmlspecialchars($_POST["password"]["new"]);
+    } else if (isset($_POST["password"]["submit"]) && ($_POST["password"]["new"] == $_POST["password"]["confirm"])) {
 
         $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
 
-        $newPassword = mysqli_real_escape_string($sqlConnection, $newPassword);
-
         if (mysqli_connect_errno()) {
-            printf("Could not connect to DB: %S", mysqli_connect_error());
+            printf ("Could not connect to DB: %s", mysqli_error());
         } else {
-            $queryString = "UPDATE account SET Password = '".$_POST["password"]["new"]."' WHERE AccountID = '".$POST["password"]["id"]."'";
-            $update = mysqli_query($sqlConnection, $queryString);
+            $query = "SELECT Password FROM account WHERE AccountID = '".$_SESSION["account"]["AccountID"]."'";
+            $res = mysqli_query($sqlConnection, $query);
 
-            if ($update) {
-                if (isset($_POST["password"])) {
-                    unset($_POST["password"]);
+            if ($res) {
+                $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
+
+                if (password_verify($_POST["password"]["old"], $array['Password'])) {
+
+                    $newPassword = htmlspecialchars($_POST["password"]["new"]);
+                    $newPassword = strip_tags($newPassword);
+                    $newPassword = mysqli_real_escape_string($sqlConnection, $newPassword);
+                    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                    $queryString = "UPDATE account SET Password = '".$hashedPassword."' WHERE AccountID = '".$_SESSION["account"]["AccountID"]."'";
+                    $update = mysqli_query($sqlConnection, $queryString);
+
+                    if ($update) {
+                        if (isset($_POST["password"])) {
+                            unset($_POST["password"]);
+                        }
+                    } else {
+                        echo "Password update failed.";
+                    }
+
+                    mysqli_close($sqlConnection);
+                    header("location: ../index.php");
                 }
+            } else {
+                echo "Password update failed.";
             }
-
-            mysqli_close($sqlConnection);
-            header("location: ../index.php");
-        }
+        } 
     }
 ?>

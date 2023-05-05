@@ -16,9 +16,9 @@
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" name="signInPassword" id="password">
                         </div>
-                        <div class="d-grid">
+                        <div class="modal-footer d-flex justify-content-center row-mb-3">
                             <p class="text-center"><span id="loginerrorMessage"></span></p>
-                            <button type="submit" onclick="checkForm('#loginForm', 'loginerrorMessage')" name="signInSubmit" class="btn btn-primary">Sign In</button>
+                            <button type="submit" onclick="checkForm('#loginForm', 'loginerrorMessage')" name="signInSubmit" class="btn btn-secondary text-light">Sign In</button>
                             <?php
                                 if (isset($_GET["wrongCredentials"])) {
                                     echo "<p class='text-danger text-center'>". $_GET['wrongCredentials']. "</p>";
@@ -188,7 +188,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
-                    <a href="checkout.php" class="btn btn-secondary">Checkout</a>
+                    <a href="checkout.php"><button class="checkout btn btn-secondary">Checkout</button></a>
                 </div>
             </div>
         </div>
@@ -261,10 +261,9 @@
                             <div class="row-mb-3 text-center">
                                 <input type="hidden" name="edit[id]" value="<?php echo $_SESSION["account"]["AccountID"]; ?>">
                                 <button type="submit" onclick="checkForm('#userEditForm', 'userEditError')" style="background-color: #008d7d;" name="<?php echo "edit[submit]"; ?>" class="btn text-light">Save Changes</button>
-                                <button type="submit" style="background-color: rgba(248, 90, 64, 0.8); font-weight: 600" name="<?php echo "edit[delete]"; ?>" class="btn text-dark">Delete Account</button>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#userDeleteModal"><button type="submit" style="background-color: rgba(248, 90, 64, 0.8); font-weight: 600" name="<?php echo "edit[delete]"; ?>" class="btn text-dark">Delete Account</button></a>
                             </div>
                             <p id="userEditError" class="text-center"></p>
-
                             <hr class="hr-splitter">
                         </form>
                     </div>
@@ -304,7 +303,7 @@
                             <div class="row-mb-3 text-center">
                                 <input type="hidden" name="password[id]" value="<?php echo $_SESSION["account"]["AccountID"]; ?>">
                                 <span id="passwordChangeMessage"></span>
-                                <button type="submit" onclick="checkForm('#passwordChangeForm', 'passwordChangeMessage')" style="background-color: #008d7d;" name="<?php echo "edit[submit]"; ?>" class="btn text-light">Save Changes</button>
+                                <button type="submit" onclick="checkForm('#passwordChangeForm', 'passwordChangeMessage')" style="background-color: #008d7d;" name="password[submit]" class="btn text-light">Save Changes</button>
                             </div>
 
                             <hr class="hr-splitter">
@@ -404,3 +403,32 @@
             </div>
         </div>
     </div>
+    
+    <!--Account deletion protection-->
+    <div class="modal fade" id="userDeleteModal" tabindex="-1" aria-labelledby="userDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signOutModalLabel">Sign Out</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="userDeleteForm" action="Includes/userAlterAccount.php" method="post">
+                        <div class="mb-3">
+                            <label for="editDelete" class="form-label">To delete this account, please enter 'DELETE' in the field below</label>
+                            <input type="text" name="edit[delete]" class="delete form-control" id="editDelete">
+                        </div>
+                        <div class="d-grid">
+                            <p id="userDeleteError" class="text-center"></p>
+                            <button type="submit" onclick="checkForm('#userDeleteForm', 'userDeleteError')" style="background-color: rgba(248, 90, 64, 0.8); font-weight: 600" name="<?php echo "edit[delete]"; ?>" class="btn text-dark">Delete Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+                            

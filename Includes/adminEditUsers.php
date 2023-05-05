@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     function updateAccount($sqlConnection, $queryString) {
 
         $update = mysqli_query($sqlConnection, $queryString);
@@ -15,14 +17,16 @@
     }
 
     if(isset($_POST["adminEdit"][$_POST["adminEdit"]["id"]."delete"])) {
-        $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
 
-        if (mysqli_connect_errno()) {
-            printf ("Could not connect to DB: %s", mysqli_connect_error());
-        } else {
-            $queryString = "DELETE FROM account WHERE AccountID = '".$_POST["adminEdit"]["id"]."'";
-            updateAccount($sqlConnection, $queryString);
-        }
+            $sqlConnection = mysqli_connect("localhost:3306", "root", "", "dummyForm");
+
+            if (mysqli_connect_errno()) {
+                printf ("Could not connect to DB: %s", mysqli_connect_error());
+            } else {
+                $queryString = "DELETE FROM account WHERE AccountID = '".$_POST["adminEdit"]["id"]."'";
+                updateAccount($sqlConnection, $queryString);
+            }
+
     } else if (isset($_POST["adminEdit"][$_POST["adminEdit"]["id"]."submit"])) {
 
         foreach($_POST["adminEdit"] as $key => &$value) {

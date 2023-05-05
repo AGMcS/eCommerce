@@ -114,11 +114,17 @@
 
                                         </div>
 
+                                        <div class="row mb-3 justify-content-center">
+                                                <label for="<?php echo "adminEditAdminID".$accountID; ?>" class="form-label text-center"><b>To delete this account, please enter your administrator's ID</b></label>
+                                                <input type="text" name="adminEdit[adminID]" class="optional form-control" id="<?php echo "adminEditAdminID".$accountID; ?>">
+                                                <?php echo (isset($_GET["invalidID"])) ? "<span class='text-danger text-center'>Invalid administrator ID</span>" : ""; ?>
+                                        </div>
+
                                         <div class="row-mb-3 text-center">
                                             <input type="hidden" name="adminEdit[id]" value="<?php echo $accountID; ?>">
                                             <p><span id="<?php echo 'adminEditError'.$count; ?>"></span></p>
                                             <button type="submit" onclick="checkForm('<?php echo '#adminEdit'.$count; ?>', '<?php echo 'adminEditError'.$count; ?>')" style="background-color: #008d7d;" name="<?php echo "adminEdit[".$accountID."submit]"; ?>" class="btn text-light">Save Changes</button>
-                                            <button type="submit" style="background-color: rgba(248, 90, 64, 0.8); font-weight: 600" name="<?php echo "adminEdit[".$accountID."delete]"; ?>" class="btn text-dark">Delete Account</button>
+                                            <button type="submit" onclick="checkAdminID('<?php echo '#adminEdit'.$count; ?>', '<?php echo $_SESSION['account']['AdminID']; ?>', '<?php echo 'adminEditError'.$count; ?>')" style="background-color: rgba(248, 90, 64, 0.8); font-weight: 600" name="<?php echo "adminEdit[".$accountID."delete]"; ?>" id="adminEditDelete" class="btn text-dark">Delete Account</button>
                                         </div>
 
                                         <hr class="hr-splitter">
@@ -221,12 +227,16 @@
                     </form>
 
                     <div class="row g-3 justify-content-center mb-4">
-                        <div class="col-auto align-center">
-                            <button class="btn btn-primary" href='#' data-bs-toggle='modal' data-bs-target='#newUserModal'>Add New User</button>
-                            <?php if (isset($_GET["AccountCreated"])) {
-                                echo "<p class='text-success'>Account successfully created</p>";
+                    <div class="modal-footer d-flex justify-content-center row-mb-3">
+                        <button class="btn btn-secondary text-light" href='#' data-bs-toggle='modal' data-bs-target='#newUserModal'>Add New User</button>
+                    </div>
+                    <div class="row-mb-3">
+                    <?php if (isset($_GET["AccountCreated"])) {
+                                echo "<p class='text-success text-center'>Account successfully created</p>";
+                            } else if (isset($_GET["EmailAlreadyExists"])) {
+                                echo "<p class='text-danger text-center'>This email already exists</p>";
                             } ?>
-                        </div>
+                    </div>
                     </div>
 
                     <h2 class="mb-4 text-center">Account List</h2>

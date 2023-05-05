@@ -5,23 +5,30 @@ if (isset($_POST["signInSubmit"])) {
 
     session_start();
     $_SESSION["email"] = htmlspecialchars($_POST["signInEmail"]);
-    $_SESSION["password"] = htmlspecialchars($_POST["signInPassword"]);
 
     $sqlConnection = mysqli_connect("localhost", "root", "", "dummyForm");
     $email = mysqli_real_escape_string($sqlConnection, $_POST["signInEmail"]);
     $password = mysqli_real_escape_string($sqlConnection, $_POST["signInPassword"]);
+    
 
     if (mysqli_connect_errno()) {
         printf("Connection to DB failed: %s \n", mysqli_connect_error());
     } else {
 
-        $sql = "SELECT * FROM account WHERE Email = '$email' and Password = '$password'";
+        // Retrieve only the password from the database
+        $sql = "SELECT Password FROM account WHERE Email = '$email'";
 
         $res = mysqli_query($sqlConnection, $sql);
         $count = mysqli_num_rows($res);
         $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
-        if ($count == 1) {
+        // Verify the provided password against the hashed password from the database
+        if (password_verify($password, $array['Password'])) {
+            // Retrieve the rest of the user data after verifying the password
+            $sql = "SELECT * FROM account WHERE Email = '$email'";
+            $res = mysqli_query($sqlConnection, $sql);
+            $array = mysqli_fetch_array($res, MYSQLI_ASSOC);
+
             session_start();
             unset($_SESSION["error"]);
             $_SESSION["account"] = $array;
@@ -41,10 +48,8 @@ if (isset($_POST["signInSubmit"])) {
         unset($_SESSION["email"]);
     }
 
-    if(isset($_SESSION["password"])) {
-        unset($_SESSION["password"]);
-    }
     header("location: ../index.php");
 }
+
 
 ?>

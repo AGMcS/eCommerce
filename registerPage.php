@@ -139,9 +139,14 @@
                                     <p id="inValidPasswordMatch" class="text-center">  </p>
                                 </div>
 
+                                <hr class="hr-splitter">
+
                                 <div class="row-mb-3">
                                     <p class="text-center"><span id="registerError"></span></p>
-                                    <button type="submit" name="registerSubmit" onclick="checkForm('#registerForm', 'registerError')" class="btn btn-primary">Register</button>
+                                </div>
+
+                                <div class="modal-footer d-flex justify-content-center row-mb-3">
+                                    <button type="submit" name="registerSubmit" onclick="checkForm('#registerForm', 'registerError')" class="btn btn-secondary text-light">Register</button>
                                 </div>
 
                                 <div class="row-mb-3 text-center">
@@ -150,7 +155,7 @@
                                     } ?>
                                 </div>
 
-                                <hr class="hr-splitter">
+                                
                             </form>
                         </div>
                     </div>

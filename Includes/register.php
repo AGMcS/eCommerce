@@ -37,8 +37,10 @@
             $array["Postcode"] = mysqli_real_escape_string($sqlConnection, $_POST["register"]["postcode"]);
             $array["Email"] = mysqli_real_escape_string($sqlConnection, $_POST["register"]["email"]);
             $array["Password"] = mysqli_real_escape_string($sqlConnection, $_POST["register"]["password"]);
+            
+            $hashedPassword = password_hash($array["Password"], PASSWORD_DEFAULT);
 
-            $query = "INSERT INTO account VALUES ('".$array["AccountID"]."', null, '".$array["FirstName"]."', '".$array["LastName"]."', '".$array["Street"]."', '".$array["City"]."', '".$array["Country"]."', '".$array["Postcode"]."', '".$array["Email"]."', '".$array["Password"]."')";
+            $query = "INSERT INTO account VALUES ('".$array["AccountID"]."', null, '".$array["FirstName"]."', '".$array["LastName"]."', '".$array["Street"]."', '".$array["City"]."', '".$array["Country"]."', '".$array["Postcode"]."', '".$array["Email"]."', '".$hashedPassword."')";
             $res = mysqli_query($sqlConnection, $query);
 
             if ($res == 1) {
@@ -85,8 +87,9 @@
         $array["Postcode"] = mysqli_real_escape_string($sqlConnection, $_POST["newUser"]["postcode"]);
         $array["Email"] = mysqli_real_escape_string($sqlConnection, $_POST["newUser"]["email"]);
         $array["Password"] = mysqli_real_escape_string($sqlConnection, $_POST["newUser"]["password"]);
+        $hashedPassword = password_hash($array["Password"], PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO account VALUES ('".$array["AccountID"]."', null, '".$array["FirstName"]."', '".$array["LastName"]."', '".$array["Street"]."', '".$array["City"]."', '".$array["Country"]."', '".$array["Postcode"]."', '".$array["Email"]."', '".$array["Password"]."')";
+        $query = "INSERT INTO account VALUES ('".$array["AccountID"]."', null, '".$array["FirstName"]."', '".$array["LastName"]."', '".$array["Street"]."', '".$array["City"]."', '".$array["Country"]."', '".$array["Postcode"]."', '".$array["Email"]."', '".$hashedPassword."')";
         $res = mysqli_query($sqlConnection, $query);
 
         if ($res == 1) {

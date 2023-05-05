@@ -114,7 +114,7 @@
                                             <div class="col-md-6">
                                                 <h4 class="mt-3 mb-3"><?php echo $value["Name"]; ?></h4>
                                                 <p><?php echo (isset($value["Size"])) ? "Size: <b>".$value["Size"]. "</b>" : "Size: <b>-</b>"; ?></p>
-                                                <p><?php echo "Quantity: ".$value["Quantity"]; ?></p>
+                                                <p><?php echo "Quantity: <b>".$value["Quantity"]."</b>"; ?></p>
                                                 <p><?php printf ("Price: <b>£%0.2f</b>", $value["Price"]); ?></p>
                                                 <?php $total += $value["Price"]; ?>
                                             </div>
@@ -216,9 +216,12 @@
                                         <p class="text-success text-center">Your purchase was successful! You can review your items in your <a href="purchaseHistory.php">Purchase History</a></p>
                             <?php   } else { ?>
                                         <input type="hidden" name="payment[Total]" value="<?php echo $total; ?>">
-                                        <button type="submit" onclick="checkForm('#billingForm', 'billingErrorMessage')" name="payment[submit]" class="btn btn-primary">Place Order</button>
+                                        <div class="modal-footer d-flex justify-content-center row-mb-3">
+                                            <p class="text-center mb-3"><span id="billingErrorMessage"></span></p>
+                                            <button type="submit" onclick="checkForm('#billingForm', 'billingErrorMessage')" name="payment[submit]" class="btn btn-secondary text-light">Place Order</button>
+                                        </div>
                             <?php   } ?>
-                                    <p class="text-center"><span id="billingErrorMessage"></span></p>
+                                    
                                 </div>
                             </form>
                         </div>

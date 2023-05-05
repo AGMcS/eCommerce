@@ -37,7 +37,7 @@
 
                         if ($available) { ?>
                             <input type="hidden" name="add[product]" value="<?php echo $productID; ?>">
-                            <button type="submit" name="add[submit]" class="btn btn-primary">Add to Basket</button>
+                            <button type="submit" name="add[submit]" class="btn btn-secondary text-light">Add to Basket</button>
                 <?php   } else { ?>
                             <p class="text-danger">This item is already in your cart</p>
                 <?php   } ?>
@@ -88,7 +88,9 @@
                     </div>
         <?php   if ($available) { ?>
                     <input type="hidden" name="add[product]" value="<?php echo $productID; ?>">
-                    <button type="submit" name="add[submit]" class="btn btn-primary">Add to Basket</button>
+                    <div class="modal-footer d-flex justify-content-center row-mb-3">
+                        <button type="submit" name="add[submit]" class="btn btn-secondary text-light">Add to Basket</button>
+                    </div>
         <?php   } else { ?>
                     <p class="text-danger">Sorry, this item is unavailable</p>
         <?php   }   ?>
